@@ -4,12 +4,12 @@
 /* ===== REGISTRATION PAGE ===== */
 .registration-page {
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: var(--color-background-light);
 }
 
 /* Hero Section */
 .registration-page__hero {
-  background-color: #8BC34A91;
+  background-color: var(--color-primary-light);
   padding: 3rem 0;
 }
 
@@ -36,7 +36,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--color-text-dark);
   margin: 0;
 }
 
@@ -67,9 +67,9 @@
 
 /* ===== REGISTRATION FORM ===== */
 .registration-form {
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 var(--color-shadow), 0 1px 2px 0 var(--color-shadow-alt);
   padding: 2rem;
 }
 
@@ -77,7 +77,7 @@
 .registration-form__section {
   margin-bottom: 2rem;
   padding-left: 1rem;
-  border-left: 4px solid #8BC34A;
+  border-left: 4px solid var(--color-primary);
 }
 
 .registration-form__section:last-of-type {
@@ -89,22 +89,22 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-medium);
   margin: 0 0 1.5rem 0;
 }
 
 /* Rows and Fields */
-
 .registration-form__row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 5.5rem; 
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .registration-form__row {
     grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 }
 
@@ -117,59 +117,65 @@
 .registration-form__field {
   display: flex;
   flex-direction: column;
-}
-
-.registration-form__field {
-  display: flex;
-  flex-direction: column;
+  min-height: 100px; /* Espacio para label + input + error */
 }
 
 /* Labels */
 .registration-form__label {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-medium);
   margin-bottom: 0.5rem;
   display: block;
+  font-size: 1.125rem;
+  flex-shrink: 0; /* No se encoge */
 }
 
 .registration-form__required {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* Inputs */
 .registration-form__input {
   width: 100%;
   padding: 0.75rem 1rem;
-  background-color: #f3f4f6;
+  background-color: var(--color-background-input);
   border: none;
   border-radius: 0.375rem;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
   outline: none;
+  box-sizing: border-box;
+  flex-shrink: 0; /* No se encoge */
+  height: 48px; /* Altura fija para consistencia */
 }
 
 .registration-form__input:focus {
-  background-color: white;
-  box-shadow: 0 0 0 2px #4CAF50;
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
 .registration-form__input--error {
-  box-shadow: 0 0 0 2px #ef4444;
+  box-shadow: 0 0 0 2px var(--color-error);
 }
 
 .registration-form__input--error:focus {
-  box-shadow: 0 0 0 2px #ef4444;
+  box-shadow: 0 0 0 2px var(--color-error);
 }
 
 /* Error Messages */
 .registration-form__error {
   font-family: 'Inter', sans-serif;
-  color: #ef4444;
+  color: var(--color-error);
   font-size: 0.875rem;
   margin-top: 0.25rem;
   margin-bottom: 0;
+  line-height: 1.2;
+  height: 16px; /* Altura más pequeña y fija */
+  overflow: hidden; /* Oculta el overflow para evitar expansión */
+  text-overflow: ellipsis; /* Puntos suspensivos si es muy largo */
+  white-space: nowrap; /* Una sola línea */
 }
 
 /* Submit Section */
@@ -181,8 +187,8 @@
 
 /* Button */
 .registration-form__button {
-  background-color: #8BC34A;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 1.125rem;
@@ -194,21 +200,19 @@
 }
 
 .registration-form__button:hover {
-  background-color: #1A542A;
+  background-color: var(--color-primary-dark);
 }
 
 .registration-form__button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #8BC34A;
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
 .registration-form__button:active {
-  background-color: #21BF73;
+  background-color: var(--color-secondary-active);
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
-
-/* Mobile First - ya está aplicado arriba */
 
 /* Tablet */
 @media (min-width: 768px) {
@@ -242,7 +246,7 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .registration-form__input {
-    border: 1px solid #374151;
+    border: 1px solid var(--color-text-medium);
   }
   
   .registration-form__input:focus {

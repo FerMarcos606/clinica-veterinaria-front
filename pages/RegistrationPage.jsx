@@ -3,12 +3,15 @@ import { useForm } from 'react-hook-form';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     console.log('Formulario válido:', data);
-    alert('Registro exitoso!');
+    alert('Registro realizado con éxito.');
   };
+
+  // Para comparar contraseñas
+  const watchPassword = watch("contraseña");
 
   return (
     <div className="registration-page">
@@ -38,7 +41,7 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="text"
-                  {...register('nombre', { required: 'El nombre es requerido' })}
+                  {...register('nombre', { required: 'El nombre es obligatorio' })}
                   className={`registration-form__input ${
                     errors.nombre ? 'registration-form__input--error' : ''
                   }`}
@@ -54,7 +57,7 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="text"
-                  {...register('apellido', { required: 'El apellido es requerido' })}
+                  {...register('apellido', { required: 'El apellido es obligatorio' })}
                   className={`registration-form__input ${
                     errors.apellido ? 'registration-form__input--error' : ''
                   }`}
@@ -71,11 +74,15 @@ const RegistrationPage = () => {
                   DNI <span className="registration-form__required">*</span>
                 </label>
                 <input
-                  type="text"
-                  {...register('dni', { required: 'El DNI es requerido' })}
-                  className={`registration-form__input ${
-                    errors.dni ? 'registration-form__input--error' : ''
-                  }`}
+                    type="text"
+                    {...register('dni', { 
+                        required: 'El DNI es obligatorio',
+                        pattern: {
+                            value: /^[0-9]{8}[A-Za-z]$/, 
+                            message: 'El DNI debe tener 8 números y una letra'
+                        }
+                    })}
+                    className={`registration-form__input ${errors.dni ? 'registration-form__input--error' : ''}`}
                 />
                 {errors.dni && (
                   <p className="registration-form__error">{errors.dni.message}</p>
@@ -93,13 +100,24 @@ const RegistrationPage = () => {
             <div className="registration-form__row">
               <div className="registration-form__field">
                 <label className="registration-form__label">
-                  Teléfono
+                  Teléfono <span className="registration-form__required">*</span>
                 </label>
                 <input
                   type="tel"
-                  {...register('telefono')}
-                  className="registration-form__input"
+                  {...register('telefono', {
+                    required: 'El número de teléfono es obligatorio',
+                    pattern: {
+                      value: /^\d{9}$/,
+                      message: 'El teléfono debe tener 9 dígitos'
+                    }
+                  })}
+                  className={`registration-form__input ${
+                    errors.telefono ? 'registration-form__input--error' : ''
+                  }`}
                 />
+                {errors.telefono && (
+                  <p className="registration-form__error">{errors.telefono.message}</p>
+                )}
               </div>
               
               <div className="registration-form__field">
@@ -109,10 +127,10 @@ const RegistrationPage = () => {
                 <input
                   type="email"
                   {...register('email', { 
-                    required: 'El email es requerido',
+                    required: 'El email es obligatorio',
                     pattern: {
                       value: /\S+@\S+\.\S+/,
-                      message: 'Email inválido'
+                      message: 'Email no válido'
                     }
                   })}
                   className={`registration-form__input ${
@@ -139,13 +157,27 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="password"
-                  {...register('contraseña', { required: 'La contraseña es requerida' })}
+                  {...register('contraseña', {
+                    required: 'La contraseña es obligatoria',
+                    minLength: {
+                      value: 8,
+                      message: 'Mínimo 8 caracteres'
+                    },
+                    validate: {
+                      hasUpperCase: (value) => /[A-Z]/.test(value) || 'Falta mayúscula',
+                      hasLowerCase: (value) => /[a-z]/.test(value) || 'Falta minúscula', 
+                      hasNumber: (value) => /\d/.test(value) || 'Falta número',
+                      hasSymbol: (value) => /[!@#$%^&*(),.?":{}|<>]/.test(value) || 'Falta símbolo'
+                    }
+                  })}
                   className={`registration-form__input ${
                     errors.contraseña ? 'registration-form__input--error' : ''
                   }`}
                 />
                 {errors.contraseña && (
-                  <p className="registration-form__error">{errors.contraseña.message}</p>
+                  <p className="registration-form__error">
+                    {errors.contraseña.message}
+                  </p>
                 )}
               </div>
               
@@ -156,8 +188,8 @@ const RegistrationPage = () => {
                 <input
                   type="password"
                   {...register('repetirContraseña', {
-                    required: 'Repetir contraseña es requerido',
-                    validate: value => value === document.querySelector('input[name="contraseña"]').value || 'Las contraseñas no coinciden'
+                    required: 'Repetir contraseña es obligatorio',
+                    validate: value => value === watchPassword || 'Las contraseñas no coinciden'
                   })}
                   className={`registration-form__input ${
                     errors.repetirContraseña ? 'registration-form__input--error' : ''
