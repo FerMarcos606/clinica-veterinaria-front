@@ -53,22 +53,34 @@ const RegistrationPage = () => {
               
               <div className="registration-form__field">
                 <label className="registration-form__label">
-                  Apellido <span className="registration-form__required">*</span>
+                  Primer apellido <span className="registration-form__required">*</span>
                 </label>
                 <input
                   type="text"
-                  {...register('apellido', { required: 'El apellido es obligatorio' })}
+                  {...register('primerApellido', { required: 'El primer apellido es obligatorio' })}
                   className={`registration-form__input ${
-                    errors.apellido ? 'registration-form__input--error' : ''
+                    errors.primerApellido ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.apellido && (
-                  <p className="registration-form__error">{errors.apellido.message}</p>
+                {errors.primerApellido && (
+                  <p className="registration-form__error">{errors.primerApellido.message}</p>
                 )}
               </div>
-            </div>
-            
-            <div className="registration-form__row">
+              <div className="registration-form__field">
+                <label className="registration-form__label">
+                  Segundo apellido
+                </label>
+                <input
+                  type="text"
+                  {...register('segundoApellido')}
+                  className={`registration-form__input ${
+                    errors.segundoApellido ? 'registration-form__input--error' : ''
+                  }`}
+                />
+                {errors.segundoApellido && (
+                  <p className="registration-form__error">{errors.segundoApellido.message}</p>
+                )}
+              </div>
               <div className="registration-form__field">
                 <label className="registration-form__label">
                   DNI <span className="registration-form__required">*</span>
