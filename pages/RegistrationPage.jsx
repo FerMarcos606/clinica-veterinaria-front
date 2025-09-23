@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import registerService from '../services/RegisterService';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const onSubmit = (data) => {
-    console.log('Formulario válido:', data);
-    alert('Registro realizado con éxito.');
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    setSubmitError('');
+
+    try {
+      const result = await registerService.registerUser(data);
+      
+      if (result.success && result.status === 201) {
+        console.log('Registro exitoso:', result.data);
+        alert('¡Registro realizado con éxito!');
+        
+        // Opcional: redireccionar o limpiar el formulario
+        // reset(); // Para limpiar el formulario
+        // navigate('/login'); // Para redireccionar
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      setSubmitError(error.message || 'Error al procesar el registro');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Para comparar contraseñas
-  const watchPassword = watch("contraseña");
+  // Para comparar passwords
+  const watchPassword = watch("password");
 
   return (
     <div className="registration-page">
@@ -28,6 +49,13 @@ const RegistrationPage = () => {
       <div className="registration-page__container">
         <form className="registration-form" onSubmit={handleSubmit(onSubmit)}>
           
+          {/* Error general del submit */}
+          {submitError && (
+            <div className="registration-form__error registration-form__error--general">
+              {submitError}
+            </div>
+          )}
+
           {/* Datos personales */}
           <section className="registration-form__section">
             <h2 className="registration-form__section-title">
@@ -41,13 +69,14 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="text"
-                  {...register('nombre', { required: 'El nombre es obligatorio' })}
+                  disabled={isLoading}
+                  {...register('name', { required: 'El nombre es obligatorio' })}
                   className={`registration-form__input ${
-                    errors.nombre ? 'registration-form__input--error' : ''
+                    errors.name ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.nombre && (
-                  <p className="registration-form__error">{errors.nombre.message}</p>
+                {errors.name && (
+                  <p className="registration-form__error">{errors.name.message}</p>
                 )}
               </div>
               
@@ -57,13 +86,14 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="text"
-                  {...register('primerApellido', { required: 'El primer apellido es obligatorio' })}
+                  disabled={isLoading}
+                  {...register('firstSurname', { required: 'El primer apellido es obligatorio' })}
                   className={`registration-form__input ${
-                    errors.primerApellido ? 'registration-form__input--error' : ''
+                    errors.firstSurname ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.primerApellido && (
-                  <p className="registration-form__error">{errors.primerApellido.message}</p>
+                {errors.firstSurname && (
+                  <p className="registration-form__error">{errors.firstSurname.message}</p>
                 )}
               </div>
               <div className="registration-form__field">
@@ -72,13 +102,14 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="text"
-                  {...register('segundoApellido')}
+                  disabled={isLoading}
+                  {...register('secondSurname')}
                   className={`registration-form__input ${
-                    errors.segundoApellido ? 'registration-form__input--error' : ''
+                    errors.secondSurname ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.segundoApellido && (
-                  <p className="registration-form__error">{errors.segundoApellido.message}</p>
+                {errors.secondSurname && (
+                  <p className="registration-form__error">{errors.secondSurname.message}</p>
                 )}
               </div>
               <div className="registration-form__field">
@@ -87,6 +118,7 @@ const RegistrationPage = () => {
                 </label>
                 <input
                     type="text"
+                    disabled={isLoading}
                     {...register('dni', { 
                         required: 'El DNI es obligatorio',
                         pattern: {
@@ -116,7 +148,8 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="tel"
-                  {...register('telefono', {
+                  disabled={isLoading}
+                  {...register('phoneNumber', {
                     required: 'El número de teléfono es obligatorio',
                     pattern: {
                       value: /^\d{9}$/,
@@ -124,11 +157,11 @@ const RegistrationPage = () => {
                     }
                   })}
                   className={`registration-form__input ${
-                    errors.telefono ? 'registration-form__input--error' : ''
+                    errors.phoneNumber ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.telefono && (
-                  <p className="registration-form__error">{errors.telefono.message}</p>
+                {errors.phoneNumber && (
+                  <p className="registration-form__error">{errors.phoneNumber.message}</p>
                 )}
               </div>
               
@@ -138,6 +171,7 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="email"
+                  disabled={isLoading}
                   {...register('email', { 
                     required: 'El email es obligatorio',
                     pattern: {
@@ -169,7 +203,8 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="password"
-                  {...register('contraseña', {
+                  disabled={isLoading}
+                  {...register('password', {
                     required: 'La contraseña es obligatoria',
                     minLength: {
                       value: 8,
@@ -183,12 +218,12 @@ const RegistrationPage = () => {
                     }
                   })}
                   className={`registration-form__input ${
-                    errors.contraseña ? 'registration-form__input--error' : ''
+                    errors.password ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.contraseña && (
+                {errors.password && (
                   <p className="registration-form__error">
-                    {errors.contraseña.message}
+                    {errors.password.message}
                   </p>
                 )}
               </div>
@@ -199,16 +234,17 @@ const RegistrationPage = () => {
                 </label>
                 <input
                   type="password"
-                  {...register('repetirContraseña', {
+                  disabled={isLoading}
+                  {...register('repeatPassword', {
                     required: 'Repetir contraseña es obligatorio',
                     validate: value => value === watchPassword || 'Las contraseñas no coinciden'
                   })}
                   className={`registration-form__input ${
-                    errors.repetirContraseña ? 'registration-form__input--error' : ''
+                    errors.repeatPassword ? 'registration-form__input--error' : ''
                   }`}
                 />
-                {errors.repetirContraseña && (
-                  <p className="registration-form__error">{errors.repetirContraseña.message}</p>
+                {errors.repeatPassword && (
+                  <p className="registration-form__error">{errors.repeatPassword.message}</p>
                 )}
               </div>
             </div>
@@ -218,9 +254,10 @@ const RegistrationPage = () => {
           <div className="registration-form__submit">
             <button
               type="submit"
-              className="registration-form__button"
+              disabled={isLoading}
+              className={`registration-form__button ${isLoading ? 'registration-form__button--loading' : ''}`}
             >
-              Registrarse
+              {isLoading ? 'Registrando...' : 'Registrarse'}
             </button>
           </div>
         </form>
