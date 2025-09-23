@@ -1,5 +1,5 @@
 // services/RegisterService.js
-import RegisterRepository from '../repositories/RegisterRepository';
+import RegisterRepository from '../../repositories/register/RegisterRepository';
 
 class RegisterService {
   constructor() {
@@ -8,8 +8,8 @@ class RegisterService {
 
   async registerUser(formData) {
     try {
-      // Transforma los datos del formulario al formato esperado por la API
-      const userData = {
+      // Primero preparamos los datos SIN encriptar para validación
+      const userDataForValidation = {
         name: formData.name,
         firstSurname: formData.firstSurname,
         secondSurname: formData.secondSurname || '', // Opcional
@@ -19,14 +19,29 @@ class RegisterService {
         password: formData.password,
       };
 
-      // Validaciones adicionales si es necesario
-      this.validateUserData(userData);
+      // Validaciones adicionales con datos sin encriptar
+      this.validateUserData(userDataForValidation);
 
-      // Llama al repository
-      const result = await this.registerRepository.register(userData);
+      // DESPUÉS de validar, preparamos los datos para enviar a la API (con encriptación)
+      const userDataForAPI = {
+        name: formData.name,
+        firstSurname: formData.firstSurname,
+        secondSurname: formData.secondSurname || '', // Opcional
+        dni: formData.dni,
+        phoneNumber: formData.phoneNumber,
+        email: btoa(formData.email),
+        password: btoa(formData.password),
+      };
 
-      // Log para debugging (remover en producción)
-      console.log('Usuario registrado exitosamente:', result);
+      // Llama al repository con los datos encriptados
+      const result = await this.registerRepository.register(userDataForAPI);
+
+      // Log para debugging (remover en producción) - NO logueamos datos encriptados
+      console.log('Usuario registrado exitosamente:', { 
+        ...result, 
+        // Evitamos loguear datos sensibles encriptados
+        data: { ...result.data, email: '[ENCRYPTED]', password: '[ENCRYPTED]' }
+      });
 
       return result;
     } catch (error) {
@@ -39,15 +54,15 @@ class RegisterService {
   validateUserData(userData) {
     // Validaciones adicionales del lado del cliente
     if (!userData.name?.trim()) {
-      throw new Error('El nombre es requerido');
+      throw new Error('El nombre es obligatorio');
     }
 
     if (!userData.firstSurname?.trim()) {
-      throw new Error('El primer apellido es requerido');
+      throw new Error('El primer apellido es obligatorio');
     }
 
     if (!userData.dni?.trim()) {
-      throw new Error('El DNI es requerido');
+      throw new Error('El DNI es obligatorio');
     }
 
     // Validación de formato DNI
@@ -62,13 +77,13 @@ class RegisterService {
       throw new Error('El teléfono debe tener 9 dígitos');
     }
 
-    // Validación de email
+    // Validación de email (recibe email sin encriptar)
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(userData.email)) {
       throw new Error('El formato del email no es válido');
     }
 
-    // Validación de contraseña
+    // Validación de contraseña (recibe password sin encriptar)
     if (!userData.password || userData.password.length < 8) {
       throw new Error('La contraseña debe tener al menos 8 caracteres');
     }

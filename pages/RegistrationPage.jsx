@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import registerService from '../services/RegisterService';
+import registerService from '../src/services/register/RegisterService';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
