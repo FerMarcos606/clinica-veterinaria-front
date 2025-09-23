@@ -1,0 +1,131 @@
+/* Estilos generales del footer */
+.footer {
+  width: 100%;
+  background-color: #1A542A;
+  color: #fff;
+  padding: 1.5rem 1rem; /* Padding base para todos los dispositivos */
+  box-sizing: border-box;
+}
+
+/* El contenedor principal ya no limita el ancho. Se elimina la clase footer__container y se usa directamente la clase footer */
+.footer__top {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-bottom: 1px solid #8BC34A;
+  padding-bottom: 2rem;
+  max-width: 1200px; /* Limitamos el ancho del contenido interno */
+  margin: 0 auto;
+}
+
+/* Estilos de las columnas (contactos, info, redes) */
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrado en móviles */
+  text-align: center; /* Centrado en móviles */
+  gap: 0.75rem; /* Espacio entre los elementos de la columna */
+}
+
+/* Estilos del logo */
+.footer__logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+/* Títulos de las columnas */
+.footer__heading {
+  font-weight: 600;
+  color: #8BC34A;
+  margin: 0;
+}
+
+/* Contenedor de icono y texto */
+.footer__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Iconos (teléfono, reloj, etc.) */
+.footer__icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Enlaces y textos */
+.footer__link,
+.footer__text {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin: 0;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor de la parte inferior (copyright y enlaces legales) */
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 2rem;
+  color: #8BC34A;
+  text-align: center;
+  max-width: 1200px; /* Limitamos el ancho del contenido interno */
+  margin: 0 auto;
+}
+
+/* Contenedor de los enlaces legales */
+.footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer__legal-link {
+  color: #8BC34A;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer__legal-link:hover {
+  text-decoration: underline;
+}
+
+/* ---
+### **Media Queries para PC**
+
+```css */
+@media (min-width: 768px) {
+  .footer {
+    padding: 1.5rem 2rem; /* El padding horizontal controla el espacio en PC */
+  }
+
+  .footer__top {
+    flex-direction: row; /* Las columnas se colocan en fila */
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer__col {
+    align-items: flex-start; /* Alinea a la izquierda en PC */
+    text-align: left; /* Alinea el texto a la izquierda en PC */
+    gap: 0.5rem;
+  }
+  
+  .footer__bottom {
+    flex-direction: row; /* El copyright y los enlaces se colocan en fila */
+    justify-content: space-between;
+  }
+  
+  .footer__legal {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}

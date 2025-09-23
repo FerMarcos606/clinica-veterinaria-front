@@ -1,10 +1,18 @@
 
 import './App.css'
+import Footer from "./components/footer/Footer"; 
 
 import RegistrationPage from "../pages/RegistrationPage";
 
 function App() {
-  return <RegistrationPage />;
+  return (
+    <>
+      {/* <RegistrationPage />    */}
+      <Footer>
+        <p>Footer de prueba</p>
+      </Footer>          
+    </>
+  );
 }
 
 
