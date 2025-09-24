@@ -20,7 +20,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
       console.log('Respuesta backend login:', response);
 
       // Mensaje de éxito
-      setSuccessMessage('¡Login exitoso! Bienvenido de vuelta.');
+      setSuccessMessage('Login realizado con éxito.');
       
       // Limpiar formulario
       reset();

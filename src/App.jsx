@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginModal from './components/login_modal/LoginModal';
-import RegistrationPage from '../pages/RegistrationPage'; // Importe seu componente de registro
+import RegistrationPage from './pages/RegistrationPage'; // Importe seu componente de registro
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
