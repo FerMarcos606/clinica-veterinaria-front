@@ -3,6 +3,14 @@ import LoginModal from './components/login_modal/LoginModal';
 import RegistrationPage from './pages/RegistrationPage';
 
 
+import HomePage from "./pages/HomePage";
+
+function App() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+
+
 import './App.css'
 import Header from './components/header/Header';
 import RegistrationPage from "../pages/RegistrationPage";
@@ -43,6 +51,8 @@ function App() {
           </div>
         </div>
       )}
+
+          <HomePage />
     </div>
   );
 }
