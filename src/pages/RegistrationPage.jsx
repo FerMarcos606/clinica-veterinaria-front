@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import registerService from '../src/services/register/RegisterService';
+import registerService from '../services/register/RegisterService';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
@@ -16,7 +16,7 @@ const RegistrationPage = () => {
       const result = await registerService.registerUser(data);
       
       if (result.success && result.status === 201) {
-        console.log('Registro exitoso:', result.data);
+        console.log('Registro realizado con éxito:', result.data);
         alert('¡Registro realizado con éxito!');
         
         // Opcional: redireccionar o limpiar el formulario

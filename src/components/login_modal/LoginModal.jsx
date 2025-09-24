@@ -1,26 +1,36 @@
+// components/LoginModal.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import authService from '../../services/auth/AuthService'; // 🔒 Importamos el service
 import './LoginModal.css';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     setSubmitError('');
+    setSuccessMessage('');
 
     try {
-      // Aquí llamarías a tu servicio de login
-      console.log('Login data:', data);
+      const response = await authService.loginUser(data);
+      console.log('Respuesta backend login:', response);
+
+      // Mensaje de éxito
+      setSuccessMessage('Login realizado con éxito.');
       
-      // Simular llamada a la API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Limpiar formulario
+      reset();
       
-      // Si el login es exitoso, cerrar el modal
-      onClose();
-      
+      // Cerrar modal después de un breve delay para mostrar el mensaje
+      setTimeout(() => {
+        onClose();
+        setSuccessMessage(''); // Limpiar mensaje para la próxima vez
+      }, 1500);
+
     } catch (error) {
       console.error('Error en el login:', error);
       setSubmitError(error.message || 'Error al iniciar sesión');
@@ -40,8 +50,8 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   return (
     <div className="login-modal__overlay" onClick={handleOverlayClick}>
       <div className="login-modal">
-        {/* Close button */}
-        <button 
+        {/* Botón cerrar */}
+        <button
           className="login-modal__close"
           onClick={onClose}
           type="button"
@@ -50,7 +60,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
           ×
         </button>
 
-        {/* Logo section */}
+        {/* Logo */}
         <div className="login-modal__header">
           <div className="login-modal__logo">
             <span className="login-modal__logo-text">Margarita</span>
@@ -58,19 +68,26 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
           </div>
         </div>
 
-        {/* Title */}
+        {/* Título */}
         <h2 className="login-modal__title">Iniciar sesión</h2>
 
-        {/* Form */}
+        {/* Formulario */}
         <form className="login-modal__form" onSubmit={handleSubmit(onSubmit)}>
-          {/* Error general del submit */}
+          {/* Mensaje de éxito */}
+          {successMessage && (
+            <div className="login-modal__success">
+              {successMessage}
+            </div>
+          )}
+
+          {/* Error general */}
           {submitError && (
             <div className="login-modal__error login-modal__error--general">
               {submitError}
             </div>
           )}
 
-          {/* Email field */}
+          {/* Campo Email */}
           <div className="login-modal__field">
             <label className="login-modal__label">
               Correo electrónico
@@ -79,12 +96,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
               type="email"
               placeholder="tunombre@gmail.com"
               disabled={isLoading}
-              {...register('email', { 
+              {...register('email', {
                 required: 'El email es obligatorio',
                 pattern: {
                   value: /\S+@\S+\.\S+/,
-                  message: 'Email no válido'
-                }
+                  message: 'Email no válido',
+                },
               })}
               className={`login-modal__input ${
                 errors.email ? 'login-modal__input--error' : ''
@@ -95,7 +112,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             )}
           </div>
 
-          {/* Password field */}
+          {/* Campo Password */}
           <div className="login-modal__field">
             <label className="login-modal__label">
               Contraseña
@@ -106,10 +123,6 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
               disabled={isLoading}
               {...register('password', {
                 required: 'La contraseña es obligatoria',
-                minLength: {
-                  value: 6,
-                  message: 'Mínimo 6 caracteres'
-                }
               })}
               className={`login-modal__input ${
                 errors.password ? 'login-modal__input--error' : ''
@@ -120,16 +133,18 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             )}
           </div>
 
-          {/* Submit button */}
+          {/* Botón enviar */}
           <button
             type="submit"
             disabled={isLoading}
-            className={`login-modal__button ${isLoading ? 'login-modal__button--loading' : ''}`}
+            className={`login-modal__button ${
+              isLoading ? 'login-modal__button--loading' : ''
+            }`}
           >
             {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </button>
 
-          {/* Register link */}
+          {/* Footer */}
           <div className="login-modal__footer">
             <span className="login-modal__footer-text">¿No tienes una cuenta?</span>
             <button
