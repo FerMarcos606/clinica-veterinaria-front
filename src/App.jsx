@@ -7,10 +7,10 @@ import RegistrationPage from "../pages/RegistrationPage";
 function App() {
   return (
     <>
-      {/* <RegistrationPage />    */}
-      <Footer>
-        <p>Footer de prueba</p>
-      </Footer>          
+      
+      {/* <RegistrationPage />  */}
+      <Footer />
+               
     </>
   );
 }
