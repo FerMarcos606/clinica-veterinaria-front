@@ -1,4 +1,3 @@
-// repositories/RegisterRepository.js
 class RegisterRepository {
   constructor() {
     this.baseUrl = import.meta.env.VITE_API_BASE_URL;
