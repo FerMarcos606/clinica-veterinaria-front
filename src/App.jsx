@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import LoginModal from './components/login_modal/LoginModal';
 import RegistrationPage from './pages/RegistrationPage';
 
+
 import HomePage from "./pages/HomePage";
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
-  const handleOpenLogin = () => {
-    setIsLoginOpen(true);
-    setIsRegisterOpen(false);
-  };
-  const handleCloseLogin = () => setIsLoginOpen(false);
-  const handleOpenRegister = () => {
-    setIsRegisterOpen(true);
-    setIsLoginOpen(false);
-  };
-  const handleCloseRegister = () => setIsRegisterOpen(false);
 
-  const handleSwitchToRegister = () => {
-    handleCloseLogin();
-    handleOpenRegister();
-  };
+
+import './App.css'
+import Header from './components/header/Header';
+import RegistrationPage from "../pages/RegistrationPage";
+
+function App() {
+  return (
+  <div className='app'>
+    <Header />;
+  <RegistrationPage />;
+  </div>
+  );
+}
 
   return (
     <div className="App">
