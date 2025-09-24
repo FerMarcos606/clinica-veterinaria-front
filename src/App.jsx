@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import LoginModal from './components/login_modal/LoginModal';
-import RegistrationPage from './pages/RegistrationPage'; // Importe seu componente de registro
+import RegistrationPage from './pages/RegistrationPage';
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false); // Novo estado para o modal de registro
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const handleOpenLogin = () => {
     setIsLoginOpen(true);
-    setIsRegisterOpen(false); // Garante que o modal de registro está fechado
+    setIsRegisterOpen(false);
   };
   const handleCloseLogin = () => setIsLoginOpen(false);
-
   const handleOpenRegister = () => {
     setIsRegisterOpen(true);
-    setIsLoginOpen(false); // Garante que o modal de login está fechado
+    setIsLoginOpen(false);
   };
   const handleCloseRegister = () => setIsRegisterOpen(false);
 

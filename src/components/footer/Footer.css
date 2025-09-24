@@ -1,0 +1,165 @@
+/* ================================
+   FOOTER GENERAL
+================================= */
+.footer {
+  width: 100%;
+  background-color: #1A542A;
+  color: #fff;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Contenedor superior (4 columnas en desktop) */
+.footer__top {
+  display: flex;
+  flex-direction: column; /* en móvil, columnas apiladas */
+  gap: 2rem;
+  border-bottom: 1px solid #8BC34A;
+  padding-bottom: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Columnas */
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* móviles */
+  text-align: center;    /* móviles */
+  gap: 0.75rem;
+}
+
+/* Logo */
+ .footer__logo {
+  width: 90px;  
+  height: auto;
+  margin-bottom: 0.5rem;
+} 
+
+/* Título principal (ej: "Información") */
+.footer__heading {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #8BC34A;
+  margin: 0.5rem 0 0.75rem;
+}
+
+/* Subtítulos (ej: "Teléfono", "Urgencias", "Dirección") */
+.footer__title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #8BC34A;
+  margin: 0.25rem 0;
+}
+
+
+/* Item con icono + texto */
+.footer__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Íconos */
+.footer__icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Íconos sociales */
+.footer__icons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center; /* móviles */
+}
+
+/* Texto y enlaces */
+.footer__link,
+.footer__text,
+.footer__time {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin: 0;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   PARTE INFERIOR
+================================= */
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  color: #fff; /* texto en blanco */
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Enlaces legales */
+.footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer__legal-link {
+  color: #8BC34A;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer__legal-link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   MEDIA QUERIES (PC)
+================================= */
+@media (min-width: 768px) {
+  .footer {
+    padding: 1.5rem 2rem;
+  }
+
+  .footer__top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer__col {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer__icons {
+    justify-content: flex-start;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .footer__legal {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  
+  .footer__logo {
+    width: 100px;
+  } 
+}
+
+
