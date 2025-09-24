@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import LoginModal from './components/login_modal/LoginModal';
-import RegistrationPage from './pages/RegistrationPage';
+import React from 'react';
+import CustomerArea from './pages/customer_area/CustomerArea';
+import './App.css';
 
 
 import HomePage from "./pages/HomePage";
 
 function App() {
+
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
