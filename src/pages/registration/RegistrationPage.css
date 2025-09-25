@@ -7,45 +7,6 @@
   background-color: var(--color-background-light);
 }
 
-/* Hero Section */
-.registration-page__hero {
-  background-color: var(--color-primary-light);
-  padding: 3rem 0;
-}
-
-.registration-page__hero-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  text-align: center;
-}
-
-@media (min-width: 640px) {
-  .registration-page__hero-container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .registration-page__hero-container {
-    padding: 0 2rem;
-  }
-}
-
-.registration-page__title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-text-dark);
-  margin: 0;
-}
-
-@media (min-width: 768px) {
-  .registration-page__title {
-    font-size: 2rem;
-  }
-}
-
 /* Container */
 .registration-page__container {
   max-width: 64rem;
