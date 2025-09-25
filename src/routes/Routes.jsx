@@ -8,7 +8,9 @@ export default function AppRoutes () {
     return (
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="/listaPacientes" element={<PatientList />} />
+          
           </Routes>  
     )
   
