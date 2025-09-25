@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/header/Header';
-import AppointmentPage from "./pages/appointments/AppointmentPage";
+import Button from './components/button/Button';
 import Footer from "./components/footer/Footer";
 import './App.css';
 
@@ -11,8 +11,8 @@ function App() {
 
   return (
     <div className="App">
-          <Header />;
-          <AppointmentPage />;
+          <Header />
+          <Button></Button>
           <Footer />
 
     </div>
