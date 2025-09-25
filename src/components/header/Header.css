@@ -54,6 +54,17 @@
     transform: scale(1.1);
 }
 
+.header__login-icon:hover {
+    transform: scale(1.1);
+}
+
+.header__login-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 
 .header__toggle {
     display: none;

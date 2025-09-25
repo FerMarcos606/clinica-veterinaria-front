@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import authService from '../../services/auth/AuthService'; // 🔒 Importamos el service
 import './LoginModal.css';
+import { Link } from 'react-router';
 
-const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
+const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -147,13 +148,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
           {/* Footer */}
           <div className="login-modal__footer">
             <span className="login-modal__footer-text">¿No tienes una cuenta?</span>
-            <button
-              type="button"
-              className="login-modal__footer-link"
-              onClick={onSwitchToRegister}
-            >
-              Crea una cuenta nueva
-            </button>
+    
+        <Link to="/register" className="login-modal__footer-link"      onClick={onClose}>   Crea una cuenta nueva</Link>
+  
+       
           </div>
         </form>
       </div>
