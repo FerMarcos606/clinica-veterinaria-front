@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Table from "../../../components/table/Table";
+import SearchBar from "../../../components/searchBar/SearchBar";
 
 export const PatientList = () => {
     const [pacientes, setPacientes] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(""); 
 
     useEffect(() => {
         const fetchPacientes = async () => {
@@ -41,7 +43,6 @@ export const PatientList = () => {
           raza: "Labrador",
           duenio: "Juan Pérez",
           contacto: "555-1234",
-          detalles: "Leer más",
         },
         {
           id: 2,
@@ -50,18 +51,30 @@ export const PatientList = () => {
           raza: "Siames",
           duenio: "Ana López",
           contacto: "555-5678",
-          detalles: "Leer más",
         },
-    ]
+    ];
+
+    const dataToShow = pacientes.length ? pacientes : datosEjemplo;
+
+     // 👇 Filtrar según búsqueda
+    const filteredData = dataToShow.filter((p) =>
+        Object.values(p).some((value) =>
+        value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
 
     return (
         <>
         <Hero text="Listado de pacientes"></Hero>
-        <span>
+        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Button text="+ Crear nuevo"></Button>
+            <SearchBar
+            placeholder="Buscar paciente..."
+            onSearch={(value) => setSearchTerm(value)}
+            />
             <Button></Button>
         </span>
-        <Table columnas={columnasPacientes} data={datosEjemplo}></Table>
+        <Table columnas={columnasPacientes} data={filteredData}></Table>
         </>
     )
 }
