@@ -1,2 +1,0 @@
-import "./PatientList.css";
-
