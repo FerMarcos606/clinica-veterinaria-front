@@ -69,7 +69,7 @@ export const PatientList = () => {
         <Hero text="Listado de pacientes"></Hero>
         <div className="functional-section">
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Button text="+ Crear nuevo"></Button>
+            <Button text="+ Crear nuevo" type="secondary"></Button>
             <SearchBar
             placeholder="Buscar paciente..."
             onSearch={(value) => setSearchTerm(value)}

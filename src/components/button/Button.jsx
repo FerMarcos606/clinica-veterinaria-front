@@ -1,21 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import './Button.css'
 
-const Button = ({ text = "Buscar", to = "/", disabled = false }) => {
-    const navigate = useNavigate()
-  
-    const handleClick = () => {
-      if (!disabled) {
-        navigate(to)
-      }
-    }
+const Button = ({ text = "Buscar", type = "primary", onClick }) => {
+
   
     return (
       <button
-        className={`button${disabled ? ' button--disabled' : ''}`}
-        onClick={handleClick}
-        disabled={disabled}
+        className={`button ${type}`} onClick={onClick}
       >
         {text}
       </button>
