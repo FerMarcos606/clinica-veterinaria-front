@@ -1,5 +1,7 @@
 import React from 'react';
-import CustomerArea from './pages/customer_area/CustomerArea';
+import Header from './components/header/Header';
+import AppointmentPage from "./pages/appointments/AppointmentPage";
+import Footer from "./components/footer/Footer";
 import './App.css';
 
 
@@ -7,53 +9,12 @@ import HomePage from "./pages/HomePage";
 
 function App() {
 
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-
-
-
-import './App.css'
-import Header from './components/header/Header';
-import RegistrationPage from "../pages/RegistrationPage";
-
-function App() {
-  return (
-  <div className='app'>
-    <Header />;
-  <RegistrationPage />;
-  </div>
-  );
-}
-
   return (
     <div className="App">
-      {/* Links para abrir os modais */}
-      <a href="#!" onClick={handleOpenLogin}>
-        Iniciar sesión
-      </a>
-      {' | '}
-      <a href="#!" onClick={handleOpenRegister}>
-        Registrarse
-      </a>
+          <Header />;
+          <AppointmentPage />;
+          <Footer />
 
-      {/* Modal de login */}
-      <LoginModal
-        isOpen={isLoginOpen}
-        onClose={handleCloseLogin}
-        onSwitchToRegister={handleSwitchToRegister}
-      />
-
-      {/* Modal de registro (você pode tratá-lo como um modal ou página completa) */}
-      {isRegisterOpen && (
-        <div className="modal-overlay"> {/* Adicione um overlay para simular um modal */}
-          <div className="modal-content">
-            <button onClick={handleCloseRegister} className="modal-close-button">X</button>
-            <RegistrationPage />
-          </div>
-        </div>
-      )}
-
-          <HomePage />
     </div>
   );
 }

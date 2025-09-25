@@ -1,0 +1,120 @@
+.appointments {
+    padding: 2rem;
+    font-family: "Inter", sans-serif;
+    color: #1a542a;
+}
+
+.appointments__title {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    margin-bottom: 2rem;
+}
+
+.appointments__container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+.appointments__instructions {
+    background: #8bc34a91; 
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.appointments__instructions-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    margin-bottom: 1rem;
+}
+
+.appointments__instructions-list {
+    margin-left: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.appointments__instructions-note {
+    font-size: 12px;
+}
+
+.appointments__form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.appointments__select,
+.appointments__input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    background: #8bc34a91;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    color: #1a542a;
+}
+
+.appointments__calendar {
+    margin-bottom: 1.5rem;
+}
+
+.appointments__calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.appointments__day {
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: none;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+
+.appointments__day--selected {
+    background: #8bc34a;
+    color: white;
+}
+
+.appointments__times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.appointments__time {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background: #8bc34a91;
+    color: #1a542a;
+    cursor: pointer;
+}
+
+.appointments__time--selected {
+    background: #8bc34a;
+    color: white;
+}
+
+.appointments__submit {
+    display: block;
+    margin: 0 auto;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: #8bc34a91;
+    color: #1a542a;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.appointments__submit:hover {
+    background: #8bc34a;
+    color: white;
+}
