@@ -4,6 +4,7 @@ import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Table from "../../../components/table/Table";
 import SearchBar from "../../../components/searchBar/SearchBar";
+import './PatientListPage.css'
 
 export const PatientList = () => {
     const [pacientes, setPacientes] = useState([]);
@@ -66,6 +67,7 @@ export const PatientList = () => {
     return (
         <>
         <Hero text="Listado de pacientes"></Hero>
+        <div className="functional-section">
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Button text="+ Crear nuevo"></Button>
             <SearchBar
@@ -74,6 +76,12 @@ export const PatientList = () => {
             />
             <Button></Button>
         </span>
+        </div>
+        <div className="divider-div">
+            <hr className="divider" />
+        </div>
+        
+
         <Table columnas={columnasPacientes} data={filteredData}></Table>
         </>
     )
