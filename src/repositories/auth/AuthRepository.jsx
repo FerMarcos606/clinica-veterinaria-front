@@ -11,6 +11,7 @@ class AuthRepository {
           'Authorization': credentials.authToken,
           'Accept': 'application/json',
         },
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -31,6 +32,7 @@ class AuthRepository {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
 
       if (!response.ok) {
