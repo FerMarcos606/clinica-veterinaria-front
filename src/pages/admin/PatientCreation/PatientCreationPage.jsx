@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './PatientCreationPage.css';
+import pacientsService from '../../../services/pacients/PacientsService';
 
 const PatientCreationPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -12,7 +13,7 @@ const PatientCreationPage = () => {
     setSubmitError('');
 
     try {
-
+      await pacientsService.createPatient(data);
       console.log('Datos del paciente:', data);
       alert('¡Paciente creado con éxito!');
     } catch (error) {
@@ -158,7 +159,20 @@ const PatientCreationPage = () => {
             </div>
           </section>
 
-          <input type="hidden" {...register('tutor')} value="3" />
+                        <div className="patient-creation-form__field">
+                <label className="patient-creation-form__label">
+                  ID del Tutor <span className="patient-creation-form__required">*</span>
+                </label>
+                <input
+                  type="number"
+                  disabled={isLoading}
+                  {...register('tutor', { required: 'El ID del tutor es obligatorio', valueAsNumber: true })}
+                  className={`patient-creation-form__input ${errors.tutor ? 'patient-creation-form__input--error' : ''}`}
+                />
+                {errors.tutor && (
+                  <p className="patient-creation-form__error">{errors.tutor.message}</p>
+                )}
+              </div>
 
           <div className="patient-creation-form__submit">
             <button
