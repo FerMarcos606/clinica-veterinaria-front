@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Hero from '../../components/hero/Hero';
 import { useForm } from 'react-hook-form';
 import registerService from '../../services/register/RegisterService';
 import './RegistrationPage.css';
@@ -37,13 +38,7 @@ const RegistrationPage = () => {
   return (
     <div className="registration-page">
       {/* Hero Section */}
-      <div className="registration-page__hero">
-        <div className="registration-page__hero-container">
-          <h1 className="registration-page__title">
-            Formulario de registro
-          </h1>
-        </div>
-      </div>
+      <Hero text="Formulario de registro"></Hero>
 
       {/* Form Section */}
       <div className="registration-page__container">
