@@ -156,10 +156,7 @@ const PatientCreationPage = () => {
                   <p className="patient-creation-form__error">{errors.sex.message}</p>
                 )}
               </div>
-            </div>
-          </section>
-
-                        <div className="patient-creation-form__field">
+                      <div className="patient-creation-form__field">
                 <label className="patient-creation-form__label">
                   ID del Tutor <span className="patient-creation-form__required">*</span>
                 </label>
@@ -173,6 +170,10 @@ const PatientCreationPage = () => {
                   <p className="patient-creation-form__error">{errors.tutor.message}</p>
                 )}
               </div>
+            </div>
+          </section>
+
+                
 
           <div className="patient-creation-form__submit">
             <button
