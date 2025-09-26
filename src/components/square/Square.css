@@ -1,0 +1,8 @@
+.page-container.admin {
+    border: 2px solid var(--color-primary);   /* línea del cuadrado */
+    padding: 16px;            /* espacio interior */
+    margin: 20px auto;        /* separa del borde de la ventana */
+    width: 80%;               /* ancho del "cuadro" */
+    box-sizing: border-box;   /* para que el padding no rompa el ancho */
+  }
+  

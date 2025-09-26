@@ -1,0 +1,10 @@
+.page-sub-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 16px 0;
+    color: var(--color-primary-dark);
+    text-align: center;
+    border-bottom: 2px solid var(--color-primary-dark);
+    padding-bottom: 8px;
+  }
+  

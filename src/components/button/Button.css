@@ -30,3 +30,14 @@
   background-color: #B0AEAE;
   font-weight: bold;
 }
+
+/* Botón danger */
+.button.danger {
+  background-color: #BA0A0A91; 
+  color: var(--color-primary-dark);
+}
+
+.button.danger:hover {
+  background-color: #D91C1C;
+  font-weight: bold;
+}
