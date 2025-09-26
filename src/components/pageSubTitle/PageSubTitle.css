@@ -4,7 +4,15 @@
     margin: 16px 0;
     color: var(--color-primary-dark);
     text-align: center;
-    border-bottom: 2px solid var(--color-primary-dark);
     padding-bottom: 8px;
+    position: relative;
+  }
+  
+  .page-sub-title::after {
+    content: "";
+    display: block;
+    width: 85%;  /* ancho de la línea */
+    margin: 0 auto; /* centrada */
+    border-bottom: 2px solid var(--color-primary-dark);
   }
   
