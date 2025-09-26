@@ -8,6 +8,7 @@ import InstalacionesIcon from "../assets/imgs/instalaciones.png";
 import AmbienteIcon from "../assets/imgs/ambiente.png";
 import EquipoIcon from "../assets/imgs/equipo.png";
 import TijerasIcon from "../assets/imgs/peluqueria.png";
+import Button from "../components/button/Button.jsx"
 
 
 const Main = () => {
