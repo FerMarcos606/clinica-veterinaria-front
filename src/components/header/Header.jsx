@@ -13,7 +13,7 @@ const Header = () => {
 
     const handleSwitchToRegister = () => {
         closeLoginModal();
-        // Aquí puedes manejar la lógica para abrir el modal de registro si es necesario
+
     };
 
     return (
