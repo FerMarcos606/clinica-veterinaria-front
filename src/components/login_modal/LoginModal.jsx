@@ -1,37 +1,23 @@
-// components/LoginModal.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import authService from '../../services/auth/AuthService'; // 🔒 Importamos el service
+import { useAuth } from '../../context/AuthContext';
 import './LoginModal.css';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
+const LoginModal = ({ isOpen, onClose }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const { login } = useAuth();
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     setSubmitError('');
-    setSuccessMessage('');
 
     try {
-      const response = await authService.loginUser(data);
-      console.log('Respuesta backend login:', response);
-
-      // Mensaje de éxito
-      setSuccessMessage('Login realizado con éxito.');
-      
-      // Limpiar formulario
+      await login(data.email, data.password);
       reset();
-      
-      // Cerrar modal después de un breve delay para mostrar el mensaje
-      setTimeout(() => {
-        onClose();
-        setSuccessMessage(''); // Limpiar mensaje para la próxima vez
-      }, 1500);
-
+      onClose();
     } catch (error) {
       console.error('Error en el login:', error);
       setSubmitError(error.message || 'Error al iniciar sesión');
@@ -51,7 +37,6 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
   return (
     <div className="login-modal__overlay" onClick={handleOverlayClick}>
       <div className="login-modal">
-        {/* Botón cerrar */}
         <button
           className="login-modal__close"
           onClick={onClose}
@@ -61,7 +46,6 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
           ×
         </button>
 
-        {/* Logo */}
         <div className="login-modal__header">
           <div className="login-modal__logo">
             <span className="login-modal__logo-text">Margarita</span>
@@ -69,26 +53,15 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
           </div>
         </div>
 
-        {/* Título */}
         <h2 className="login-modal__title">Iniciar sesión</h2>
 
-        {/* Formulario */}
         <form className="login-modal__form" onSubmit={handleSubmit(onSubmit)}>
-          {/* Mensaje de éxito */}
-          {successMessage && (
-            <div className="login-modal__success">
-              {successMessage}
-            </div>
-          )}
-
-          {/* Error general */}
           {submitError && (
             <div className="login-modal__error login-modal__error--general">
               {submitError}
             </div>
           )}
 
-          {/* Campo Email */}
           <div className="login-modal__field">
             <label className="login-modal__label">
               Correo electrónico
@@ -113,7 +86,6 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
             )}
           </div>
 
-          {/* Campo Password */}
           <div className="login-modal__field">
             <label className="login-modal__label">
               Contraseña
@@ -134,7 +106,6 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
             )}
           </div>
 
-          {/* Botón enviar */}
           <button
             type="submit"
             disabled={isLoading}
@@ -145,13 +116,11 @@ const LoginModal = ({ isOpen, onClose, /*onSwitchToRegister*/ }) => {
             {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </button>
 
-          {/* Footer */}
           <div className="login-modal__footer">
             <span className="login-modal__footer-text">¿No tienes una cuenta?</span>
-    
-        <Link to="/register" className="login-modal__footer-link"      onClick={onClose}>   Crea una cuenta nueva</Link>
-  
-       
+            <Link to="/register" className="login-modal__footer-link" onClick={onClose}>
+              Crea una cuenta nueva
+            </Link>
           </div>
         </form>
       </div>

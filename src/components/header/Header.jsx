@@ -3,18 +3,15 @@ import logo from "../../assets/logos/MargaritaLogo.png";
 import iconInicioSesion from "../../assets/icons/IconInicioSesion.png";
 import "./Header.css";
 import LoginModal from "../login_modal/LoginModal";
+import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+    const { isAuthenticated, logout } = useAuth();
 
     const openLoginModal = () => setLoginModalOpen(true);
     const closeLoginModal = () => setLoginModalOpen(false);
-
-    const handleSwitchToRegister = () => {
-        closeLoginModal();
-
-    };
 
     return (
         <>
@@ -41,9 +38,15 @@ const Header = () => {
                 </nav>
 
                 <div className="header__login">
-                    <button onClick={openLoginModal} className="header__login-button">
-                        <img src={iconInicioSesion} alt="Iniciar sesión" className="header__login-icon" />
-                    </button>
+                    {isAuthenticated ? (
+                        <button onClick={logout} className="header__login-button">
+                            Cerrar Sesión
+                        </button>
+                    ) : (
+                        <button onClick={openLoginModal} className="header__login-button">
+                            <img src={iconInicioSesion} alt="Iniciar sesión" className="header__login-icon" />
+                        </button>
+                    )}
                 </div>
 
                 <button className="header__toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -51,11 +54,12 @@ const Header = () => {
                 </button>
             </header>
 
-            <LoginModal
-                isOpen={isLoginModalOpen}
-                onClose={closeLoginModal}
-                onSwitchToRegister={handleSwitchToRegister}
-            />
+            {!isAuthenticated && (
+                <LoginModal
+                    isOpen={isLoginModalOpen}
+                    onClose={closeLoginModal}
+                />
+            )}
         </>
     );
 };
