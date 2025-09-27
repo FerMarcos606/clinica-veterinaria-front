@@ -12,27 +12,15 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = async (email, password) => {
-    try {
-      const userData = await authService.loginUser({ email, password });
-      setUser(userData);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.error("Login failed:", error);
-      setIsAuthenticated(false);
-      setUser(null);
-      throw error;
-    }
+    const userData = await authService.loginUser({ email, password });
+    setUser(userData);
+    setIsAuthenticated(true);
   };
 
   const logout = async () => {
-    try {
-      await authService.logoutUser();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    } finally {
-      setUser(null);
-      setIsAuthenticated(false);
-    }
+    await authService.logoutUser();
+    setUser(null);
+    setIsAuthenticated(false);
   };
 
   const value = {
