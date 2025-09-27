@@ -26,7 +26,9 @@ class PacientsRepository {
     }
 
         async getAll() {
-        const response = await fetch(`${this.baseUrl}/patients`);
+        const response = await fetch(`${this.baseUrl}/patients`, {
+            credentials: 'include',
+        });
         if (!response.ok) {
             throw new Error(`Error al obtener los pacientes (${response.status})`);
         }
