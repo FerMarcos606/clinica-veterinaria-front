@@ -27,7 +27,7 @@ export const PatientList = () => {
         { header: "Familia", accessor: "family" },
         { header: "Raza", accessor: "breed" },
         { header: "Sexo", accessor: "sex" },
-        { header: "Dueño", accessor: "tutor" },
+        { header: "Dueño", accessor: "tutorFullName" },
         
         {
             header: "Detalles",
