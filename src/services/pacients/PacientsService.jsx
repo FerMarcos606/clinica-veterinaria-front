@@ -7,11 +7,11 @@ class PacientsService {
 
     async createPatient(patientData) {
         try {
-            // Here you could add validation for patientData before sending it to the repository
+     
             if (!patientData.name?.trim()) {
                 throw new Error('El nombre del paciente es obligatorio');
             }
-            // Add other validations as needed
+
 
             const result = await this.pacientsRepository.create(patientData);
 
@@ -19,6 +19,16 @@ class PacientsService {
             return result;
         } catch (error) {
             console.error('Error en PacientsService.createPatient:', error);
+            throw error;
+        }
+    }
+        async getPatients() {
+        try {
+            const result = await this.pacientsRepository.getAll();
+            console.log('Pacientes obtenidos con éxito:', result);
+            return result;
+        } catch (error) {
+            console.error('Error en PacientsService.getPatients:', error);
             throw error;
         }
     }

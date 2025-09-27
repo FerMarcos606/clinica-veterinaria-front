@@ -5,57 +5,45 @@ import Button from "../../../components/button/Button";
 import Table from "../../../components/table/Table";
 import SearchBar from "../../../components/searchBar/SearchBar";
 import './PatientListPage.css'
+import pacientsService from "../../../services/pacients/PacientsService";
 
 export const PatientList = () => {
     const [pacientes, setPacientes] = useState([]);
     const [searchTerm, setSearchTerm] = useState(""); 
 
-    useEffect(() => {
+       useEffect(() => {
         const fetchPacientes = async () => {
-          const response = await fetch("http://localhost:8080/api/v1/patients");
-          const data = await response.json();
+          const data = await pacientsService.getPatients();
           setPacientes(data);
         };
         fetchPacientes();
       }, []);
 
       const columnasPacientes = [
-        { header: "Id", accessor: "id" },
-        { header: "Familia", accessor: "familia" },
-        { header: "Nombre", accessor: "nombre" },
-        { header: "Raza", accessor: "raza" },
-        { header: "Dueño", accessor: "duenio" },
-        { header: "Contacto", accessor: "contacto" },
+        { header: "Id", accessor: "id_patient" },
+        {header: "Nº Identificación", accessor: "identificationNumber"},
+        { header: "Nombre", accessor: "name" },
+        { header: "Edad", accessor: "age" },
+        { header: "Familia", accessor: "family" },
+        { header: "Raza", accessor: "breed" },
+        { header: "Sexo", accessor: "sex" },
+        { header: "Dueño", accessor: "tutor" },
+        
         {
             header: "Detalles",
             render: (fila) => (
-              <Link to={`/pacientes/${fila.id}`} className="leer-mas">
+              <Link to={`/pacientes/${fila.id_patient}`} className="leer-mas">
                 Leer más
               </Link>
             )
           }
       ];
 
-      const datosEjemplo = [
-        {
-          id: 1,
-          familia: "Canino",
-          nombre: "Bobby",
-          raza: "Labrador",
-          duenio: "Juan Pérez",
-          contacto: "555-1234",
-        },
-        {
-          id: 2,
-          familia: "Felino",
-          nombre: "Mishi",
-          raza: "Siames",
-          duenio: "Ana López",
-          contacto: "555-5678",
-        },
-    ];
+    const dataToShow = pacientes;
 
-    const dataToShow = pacientes.length ? pacientes : datosEjemplo;
+      
+
+
 
      // 👇 Filtrar según búsqueda
     const filteredData = dataToShow.filter((p) =>
