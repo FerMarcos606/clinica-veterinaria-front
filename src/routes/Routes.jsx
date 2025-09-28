@@ -5,6 +5,7 @@ import PatientCreationPage from "../pages/admin/PatientCreation/PatientCreationP
 import CustomerArea from "../pages/customer_area/CustomerArea";
 import PatientList from "../pages/admin/patientList/PatientListPage";
 import PatientDetails from "../pages/admin/patientDetails/PatientDetailsPage";
+import UserListPage from "../pages/admin/userList/UserListPage";
 
 import RegistrationPage from "../pages/registration/RegistrationPage";
 export default function AppRoutes () {
@@ -18,6 +19,7 @@ export default function AppRoutes () {
 
 
           <Route path="/listaPacientes" element={<PatientList />} />
+          <Route path="/admin/user-list" element={<UserListPage />} />
 
           <Route path="/detallePaciente" element={<PatientDetails />} />
           
