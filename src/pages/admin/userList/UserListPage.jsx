@@ -39,7 +39,7 @@ export const UserListPage = () => {
 
     const dataToShow = users;
 
-     // 👇 Filtrar según búsqueda
+
     const filteredData = dataToShow.filter((p) =>
         Object.values(p).some((value) =>
         value?.toString().toLowerCase().includes(searchTerm.toLowerCase())

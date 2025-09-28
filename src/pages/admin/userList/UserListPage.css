@@ -13,7 +13,6 @@
 
 .divider {
     border: none;
-    border-top: 2px solid var(--color-primary); /* grosor y color */
-    margin: 8px 0; /* espacio arriba/abajo */
+    border-top: 2px solid var(--color-primary); 
     width: 85%;
   }
