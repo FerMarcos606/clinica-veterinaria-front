@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import appointmentsService from "../../services/appointments/AppointmentsService";
+import { useAuth } from "../../context/AuthContext";
 import "./AppointmentPage.css";
 
 const AppointmentsPage = () => {
+    const { user } = useAuth();
+    console.log('User object from context:', user);
     const [isUrgent, setIsUrgent] = useState(false);
     const [reason, setReason] = useState("Vacunación anual");
     const [patientId, setPatientId] = useState("1");
-    const [userId, setUserId] = useState("3");
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
@@ -19,6 +21,11 @@ const AppointmentsPage = () => {
         e.preventDefault();
         setError(null);
         setSuccess(null);
+
+        if (!user) {
+            setError("Debes iniciar sesión para crear una cita.");
+            return;
+        }
 
         if (!selectedDate || !selectedTime) {
             setError("Por favor, selecciona una fecha y hora.");
@@ -38,8 +45,9 @@ const AppointmentsPage = () => {
             reason,
             status: "PENDIENTE",
             patientId: parseInt(patientId, 10),
-            userId: parseInt(userId, 10),
+            userId: user.id,
         };
+        console.log(appointmentData)
 
         try {
             const result = await appointmentsService.createAppointment(appointmentData);
@@ -83,14 +91,6 @@ const AppointmentsPage = () => {
                             placeholder="ID del Paciente"
                             value={patientId}
                             onChange={(e) => setPatientId(e.target.value)}
-                            required
-                        />
-                        <input
-                            className="appointments__input"
-                            type="number"
-                            placeholder="ID del Usuario"
-                            value={userId}
-                            onChange={(e) => setUserId(e.target.value)}
                             required
                         />
                     </div>
