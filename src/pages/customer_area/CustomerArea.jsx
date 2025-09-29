@@ -10,28 +10,36 @@ const CustomerArea = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPetsAndAppointments = async () => {
-      setError(null);
-      try {
-        const userPets = await pacientsService.getPatientsByUserId(user?.id);
-        setPets(userPets);
-      } catch (error) {
-        console.error("Error fetching user's pets:", error);
-      }
-      try {
-        const myAppointments = await appointmentsService.getMyAppointments();
-        setAppointments(myAppointments);
-      } catch (error) {
-        console.error("Error fetching user's appointments:", error);
-        setError("No se pudieron cargar las citas. Por favor, inténtelo de nuevo más tarde.");
-      }
-    };
+useEffect(() => {
+  const fetchPetsAndAppointments = async () => {
+    setError(null);
 
-    if (user) {
-      fetchPetsAndAppointments();
+    try {
+    
+      const userId = localStorage.getItem('userId');
+
+      if (!userId) {
+        console.error("No se encontró el userId en localStorage");
+        setError("Error: usuario no autenticado");
+        return;
+      }
+
+ 
+      const userPets = await pacientsService.getPatientsByUserId(userId);
+      setPets(userPets);
+
+
+      const myAppointments = await appointmentsService.getMyAppointments(userId);
+      setAppointments(myAppointments);
+
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario:", error);
+      setError("No se pudieron cargar tus datos. Inténtalo nuevamente.");
     }
-  }, [user]);
+  };
+
+  fetchPetsAndAppointments();
+}, []); 
 
   return (
     <div className="customer-area">
