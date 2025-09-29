@@ -34,6 +34,7 @@ class PacientsRepository {
         }
         return await response.json();
     }
+    
 }
 
 export default PacientsRepository;

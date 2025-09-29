@@ -18,10 +18,9 @@ class AuthRepository {
       throw new Error(`Error al iniciar sesión (${response.status})`);
     }
 
-    // 2. Si el login fue exitoso, pide el usuario actual
     const userResponse = await fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
-      credentials: 'include', // importante para enviar la cookie de sesión
+      credentials: 'include', 
       headers: {
         'Accept': 'application/json',
       }
@@ -32,10 +31,10 @@ class AuthRepository {
     }
 
     const user = await userResponse.json();
-    // 3. Guarda el id donde lo necesites (ejemplo: localStorage)
+
     localStorage.setItem('userId', user.id_user);
 
-    // 4. Devuelve el usuario si lo necesitas
+
     return user;
   }
 
