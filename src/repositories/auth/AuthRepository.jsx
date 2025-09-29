@@ -4,43 +4,40 @@ class AuthRepository {
   }
   
   async login(credentials) {
-    try {
-      const response = await fetch(`${this.baseUrl}/login`, {
-        method: 'GET',
-        headers: {
-          'Authorization': credentials.authToken,
-          'Accept': 'application/json',
-        },
-      });
+    const response = await fetch(`${this.baseUrl}/login`, {
+      method: 'GET',
+      headers: {
+        'Authorization': credentials.authToken,
+        'Accept': 'application/json',
+      },
+      credentials: 'include',
+    });
 
-      if (!response.ok) {
-        throw new Error(`Error al iniciar sesión (${response.status})`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Error en AuthRepository.login:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Error al iniciar sesión (${response.status})`);
     }
+
+    return await response.json();
   }
 
   async logout() {
-    try {
-      const response = await fetch(`${this.baseUrl}/logout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    const response = await fetch(`${this.baseUrl}/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
 
-      if (!response.ok) {
-        throw new Error('Error al cerrar sesión');
-      }
+    if (!response.ok) {
+      throw new Error('Error al cerrar sesión');
+    }
 
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
       return await response.json();
-    } catch (error) {
-      console.error('Error en AuthRepository.logout:', error);
-      throw error;
+    } else {
+      return;
     }
   }
 }

@@ -4,48 +4,42 @@ import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Table from "../../../components/table/Table";
 import SearchBar from "../../../components/searchBar/SearchBar";
-import './PatientListPage.css'
-import pacientsService from "../../../services/pacients/PacientsService";
+import './UserListPage.css'
+import userService from "../../../services/user/UserService";
 
-export const PatientList = () => {
-    const [pacientes, setPacientes] = useState([]);
+export const UserListPage = () => {
+    const [users, setUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState(""); 
 
        useEffect(() => {
-        const fetchPacientes = async () => {
-          const data = await pacientsService.getPatients();
-          setPacientes(data);
+        const fetchUsers = async () => {
+          const data = await userService.getUsers();
+          setUsers(data);
         };
-        fetchPacientes();
+        fetchUsers();
       }, []);
 
-      const columnasPacientes = [
-        { header: "Id", accessor: "id_patient" },
-        {header: "Nº Identificación", accessor: "identificationNumber"},
+      const columnasUsers = [
+        { header: "Id", accessor: "id_user" },
+        { header: "Email", accessor: "email" },
+        { header: "DNI", accessor: "dni" },
         { header: "Nombre", accessor: "name" },
-        { header: "Edad", accessor: "age" },
-        { header: "Familia", accessor: "family" },
-        { header: "Raza", accessor: "breed" },
-        { header: "Sexo", accessor: "sex" },
-        { header: "Dueño", accessor: "tutorFullName" },
-        
+        { header: "Primer Apellido", accessor: "firstSurname" },
+        { header: "Segundo Apellido", accessor: "secondSurname" },
+        { header: "Teléfono", accessor: "phoneNumber" },
         {
             header: "Detalles",
             render: (fila) => (
-              <Link to={`/pacientes/${fila.id_patient}`} className="leer-mas">
+              <Link to={`/admin/user/${fila.id_user}`} className="leer-mas">
                 Leer más
               </Link>
             )
           }
       ];
 
-    const dataToShow = pacientes;
-
-      
+    const dataToShow = users;
 
 
-
-     // 👇 Filtrar según búsqueda
     const filteredData = dataToShow.filter((p) =>
         Object.values(p).some((value) =>
         value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
@@ -54,12 +48,11 @@ export const PatientList = () => {
 
     return (
         <>
-        <Hero text="Listado de pacientes"></Hero>
+        <Hero text="Listado de usuarios"></Hero>
         <div className="functional-section">
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Button text="+ Crear nuevo" type="secondary"></Button>
             <SearchBar
-            placeholder="Buscar paciente..."
+            placeholder="Buscar usuario..."
             onSearch={(value) => setSearchTerm(value)}
             />
             <Button></Button>
@@ -70,9 +63,9 @@ export const PatientList = () => {
         </div>
         
 
-        <Table columnas={columnasPacientes} data={filteredData}></Table>
+        <Table columnas={columnasUsers} data={filteredData}></Table>
         </>
     )
 }
 
-export default PatientList
+export default UserListPage
