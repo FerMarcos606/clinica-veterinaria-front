@@ -6,7 +6,7 @@ import CustomerArea from "../pages/customer_area/CustomerArea";
 import PatientList from "../pages/admin/patientList/PatientListPage";
 import PatientDetails from "../pages/admin/patientDetails/PatientDetailsPage";
 import UserListPage from "../pages/admin/userList/UserListPage";
-
+import ApointmentPage from "../pages/appointments/AppointmentPage";
 import RegistrationPage from "../pages/registration/RegistrationPage";
 export default function AppRoutes () {
     return (
@@ -17,7 +17,7 @@ export default function AppRoutes () {
           <Route path="/customer-area" element={<CustomerArea />} />
 
 
-
+        <Route path="/citas" element={<ApointmentPage />} />
           <Route path="/listaPacientes" element={<PatientList />} />
           <Route path="/admin/user-list" element={<UserListPage />} />
 
