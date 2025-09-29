@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "../../../components/button/Button";
 import Hero from "../../../components/hero/Hero";
 import Square from "../../../components/square/Square";
 import InfoCard from "../../../components/infoCard/InfoCard";
 import PageSubTitle from "../../../components/pageSubTitle/PageSubTitle";
+import Modal from "../../../components/modal/Modal";
 
 import { useParams } from "react-router-dom";
 import "./AppointmentDetails.css"
 
 
 export const AppointmentDetails = () => {
+
+    // 👇 controla si el modal está abierto o no
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { id } = useParams(); // saca el id de la URL /pacientes/:id
     /* const [paciente, setPaciente] = useState(null);
@@ -89,9 +93,21 @@ return (
         <PageSubTitle text="Resumen de paciente"></PageSubTitle>
         <InfoCard data={tratamiento} fields={tratamientoFields}></InfoCard>
     </Square>
+    {/* Botón que abre el modal */}
     <div className="button-container">
-        <Button text="Añadir tratamiento" type="primary"></Button>
-    </div>
+        <Button
+          text="Añadir tratamiento"
+          type="primary"
+          onClick={() => setIsModalOpen(true)}
+        />
+      </div>
+
+      {/* Modal fuera del botón */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={() => console.log("Tratamiento guardado")}
+      />
     </>
 )
 }
