@@ -27,6 +27,17 @@ class AppointmentsService {
             throw error;
         }
     }
+
+    async getMyAppointments() {
+        try {
+            const result = await this.appointmentsRepository.getMyAppointments();
+            console.log('Mis citas obtenidas con éxito:', result);
+            return result;
+        } catch (error) {
+            console.error('Error en AppointmentsService.getMyAppointments:', error);
+            throw error;
+        }
+    }
 }
 
 const appointmentsService = new AppointmentsService();

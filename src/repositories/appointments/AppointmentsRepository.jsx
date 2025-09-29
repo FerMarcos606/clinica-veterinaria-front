@@ -34,6 +34,16 @@ class AppointmentsRepository {
         }
         return await response.json();
     }
+
+    async getMyAppointments() {
+        const response = await fetch(`${this.baseUrl}/appointments/my-appointments`, {
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error(`Error al obtener mis citas (${response.status})`);
+        }
+        return await response.json();
+    }
 }
 
 export default AppointmentsRepository;

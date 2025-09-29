@@ -1,48 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CustomerArea.css';
+import { useAuth } from '../../context/AuthContext';
+import pacientsService from '../../services/pacients/PacientsService';
+import appointmentsService from '../../services/appointments/AppointmentsService';
 
 const CustomerArea = () => {
+  const { user } = useAuth();
   const [pets, setPets] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [error, setError] = useState(null);
 
-  const addSamplePet = () => {
-    const samplePets = [
-      {
-        id: 1,
-        name: 'Faustina',
-        treatment: 'Vitaminas porque está chiquita.'
-      },
-      {
-        id: 2,
-        name: 'Jacinto',
-        treatment: 'Ninguno.'
+  useEffect(() => {
+    const fetchPetsAndAppointments = async () => {
+      setError(null);
+      try {
+        const userPets = await pacientsService.getPatientsByUserId(user?.id);
+        setPets(userPets);
+      } catch (error) {
+        console.error("Error fetching user's pets:", error);
       }
-    ];
-    setPets(samplePets);
-  };
-
-  const addSampleAppointment = () => {
-    const sampleAppointment = {
-      id: 1,
-      petName: 'Faustina',
-      date: '25/09/25',
-      time: '10.00 AM'
+      try {
+        const myAppointments = await appointmentsService.getMyAppointments();
+        setAppointments(myAppointments);
+      } catch (error) {
+        console.error("Error fetching user's appointments:", error);
+        setError("No se pudieron cargar las citas. Por favor, inténtelo de nuevo más tarde.");
+      }
     };
-    setAppointments([sampleAppointment]);
-  };
 
-  const clearPets = () => {
-    setPets([]);
-  };
-
-  const clearAppointments = () => {
-    setAppointments([]);
-  };
+    if (user) {
+      fetchPetsAndAppointments();
+    }
+  }, [user]);
 
   return (
     <div className="customer-area">
       <div className="welcome-section">
-        <h1>Hola, Cliente</h1>
+        <h1>Hola, {user ? user.name : 'Cliente'}</h1>
         <div className="user-actions">
           <span>Tu área | Cerrar sesión</span>
         </div>
@@ -53,10 +47,6 @@ const CustomerArea = () => {
         <section className="pets-section">
           <div className="section-header">
             <h2>Mis mascotas</h2>
-            <div className="sample-controls">
-              <button onClick={addSamplePet} className="btn-sample">Añadir mascotas de muestra</button>
-              <button onClick={clearPets} className="btn-clear">Eliminar todas</button>
-            </div>
           </div>
 
           {pets.length === 0 ? (
@@ -67,9 +57,9 @@ const CustomerArea = () => {
           ) : (
             <div className="pets-grid">
               {pets.map(pet => (
-                <div key={pet.id} className="pet-card">
+                <div key={pet.id_patient} className="pet-card">
                   <h3>{pet.name}</h3>
-                  <p><strong>Tratamiento actual:</strong> {pet.treatment}</p>
+                  <p><strong>Tratamiento actual:</strong> {pet.treatment || 'Ninguno'}</p>
                   <button className="btn-secondary">Ver ficha</button>
                 </div>
               ))}
@@ -85,27 +75,24 @@ const CustomerArea = () => {
         <section className="appointments-section">
           <div className="section-header">
             <h2>Mis citas</h2>
-            <div className="sample-controls">
-              <button onClick={addSampleAppointment} className="btn-sample">Añadir cita de muestra</button>
-              <button onClick={clearAppointments} className="btn-clear">Eliminar todas</button>
-            </div>
           </div>
 
-          {appointments.length === 0 ? (
+          {error ? (
+            <div className="error-message">{error}</div>
+          ) : appointments.length === 0 ? (
             <div className="empty-state">
               <p>No tienes citas programadas</p>
               <button className="btn-primary">Pedir nueva cita</button>
             </div>
           ) : (
             <div className="appointments-content">
-              <div className="next-appointment">
-                <h3>Próxima cita</h3>
-                <div className="appointment-card">
-                  <p><strong>Mascota:</strong> {appointments[0].petName}</p>
-                  <p><strong>Fecha:</strong> {appointments[0].date}</p>
-                  <p><strong>Hora:</strong> {appointments[0].time}</p>
+              {appointments.map(appointment => (
+                <div className="appointment-card" key={appointment.id_appointment}>
+                  <p><strong>Mascota:</strong> {appointment.patientName}</p>
+           <p><strong>Fecha:</strong> {new Date(appointment.appointmentDatetime).toLocaleDateString()}</p>
+<p><strong>Hora:</strong> {new Date(appointment.appointmentDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
-              </div>
+              ))}
               <button className="btn-primary">Pedir nueva cita</button>
             </div>
           )}
