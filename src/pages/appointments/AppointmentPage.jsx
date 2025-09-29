@@ -45,7 +45,7 @@ const AppointmentsPage = () => {
             reason,
             status: "PENDIENTE",
             patientId: parseInt(patientId, 10),
-            userId: user.id,
+            userId: parseInt(localStorage.getItem('userId'), 10)
         };
         console.log(appointmentData)
 
