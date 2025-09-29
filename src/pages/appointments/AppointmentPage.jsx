@@ -70,7 +70,7 @@ const AppointmentsPage = () => {
 
     const appointmentData = {
       appointmentDatetime,
-      type: isUrgent ? "URGENTE" : "ESTANDAR",
+      type: isUrgent,
       reason,
       status: "PENDIENTE",
       patientId: parseInt(patientId, 10),
