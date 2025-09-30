@@ -10,7 +10,10 @@ const WhoWeAre = () => {
   return (
     <>
       <Hero text='¿Quienes somos?' />
+      <div className='margarita-container'>
       <Card imagen={Margarita} title='Margarita' text='Margarita Gómez es una doctora reconocida en la asociación veterinaria internacional de Mónaco.'></Card>
+      </div>
+      
 
     </>
   )
