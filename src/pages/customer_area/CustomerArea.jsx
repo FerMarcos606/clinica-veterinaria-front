@@ -3,6 +3,7 @@ import './CustomerArea.css';
 import { useAuth } from '../../context/AuthContext';
 import pacientsService from '../../services/pacients/PacientsService';
 import appointmentsService from '../../services/appointments/AppointmentsService';
+import { Link } from 'react-router';
 
 const CustomerArea = () => {
   const { user } = useAuth();
@@ -51,7 +52,6 @@ useEffect(() => {
       </div>
 
       <div className="customer-content">
-        {/* Sección de mascotas (izquierda) */}
         <section className="pets-section">
           <div className="section-header">
             <h2>Mis mascotas</h2>
@@ -60,7 +60,7 @@ useEffect(() => {
           {pets.length === 0 ? (
             <div className="empty-state">
               <p>No tienes mascotas registradas</p>
-              <button className="btn-primary">Añadir nueva mascota</button>
+              <Link to="/crear-paciente" className='btn-primary'>Añadir nueva mascota</Link>
             </div>
           ) : (
             <div className="pets-grid">
@@ -71,15 +71,11 @@ useEffect(() => {
                   <button className="btn-secondary">Ver ficha</button>
                 </div>
               ))}
-              <button className="add-pet-card">
-                <span>+</span>
-                <p>Añadir nueva mascota</p>
-              </button>
+              <Link to="/crear-paciente" className='add-pet-card'>+ Añadir mascota</Link>
             </div>
           )}
         </section>
 
-        {/* Sección de citas (derecha) */}
         <section className="appointments-section">
           <div className="section-header">
             <h2>Mis citas</h2>
@@ -106,7 +102,6 @@ useEffect(() => {
           )}
         </section>
 
-        {/* Información de contacto (abajo, ancho completo) */}
         <section className="contact-info">
           <div className="emergency-contact">
             <h3>Urgencias</h3>
