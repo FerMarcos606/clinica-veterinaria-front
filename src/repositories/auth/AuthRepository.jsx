@@ -4,7 +4,7 @@ class AuthRepository {
   }
   
   async login(credentials) {
-    // 1. Login (ya lo tienes)
+
     const response = await fetch(`${this.baseUrl}/login`, {
       method: 'GET',
       headers: {
