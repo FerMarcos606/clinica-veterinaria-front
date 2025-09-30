@@ -10,6 +10,7 @@ import ApointmentPage from "../pages/appointments/AppointmentPage";
 import RegistrationPage from "../pages/registration/RegistrationPage";
 import AppointmentDetails from "../pages/admin/AppointmentDetails/AppointmentDetails";
 import Contact from "../pages/contact/Contact";
+import Services from "../pages/services/Services";
 export default function AppRoutes () {
     return (
         <Routes>
@@ -20,6 +21,7 @@ export default function AppRoutes () {
 
           <Route path="/appointment-details" element={<AppointmentDetails />} />
           <Route path="/contacto" element={<Contact />} />
+          <Route path="/servicios" element={<Services />} />
 
 
         <Route path="/citas" element={<ApointmentPage />} />
