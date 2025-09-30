@@ -3,44 +3,74 @@ import AuthRepository from '../../repositories/auth/AuthRepository';
 class AuthService {
   constructor() {
     this.authRepository = new AuthRepository();
+    this.baseUrl = import.meta.env.VITE_API_BASE_URL;
   }
 
+ 
   async loginUser(formData) {
     try {
-      // Validación básica antes de enviar
-      if (!formData.email?.trim()) {
-        throw new Error('El email es obligatorio');
-      }
-      if (!formData.password?.trim()) {
-        throw new Error('La contraseña es obligatoria');
-      }
+      if (!formData.email?.trim()) throw new Error('El email es obligatorio');
+      if (!formData.password?.trim()) throw new Error('La contraseña es obligatoria');
 
-      // Creamos el token de Basic Auth
+     
       const credentials = `${formData.email}:${formData.password}`;
       const authToken = `Basic ${btoa(credentials)}`;
-      
+
+   
       const result = await this.authRepository.login({ authToken });
 
-      console.log('Login con éxito:', result);
-      return result;
+
+      const user = await this.getCurrentUser();
+
+      if (user) {
+        localStorage.setItem('userId', user.id_user);
+      }
+
+      console.log('✅ Login con éxito:', user);
+      return user;
     } catch (error) {
-      console.error('Error en AuthService.loginUser:', error);
+      console.error('❌ Error en AuthService.loginUser:', error);
       throw error;
     }
   }
 
+  // 🔹 Cerrar sesión
   async logoutUser() {
     try {
       const result = await this.authRepository.logout();
-      console.log('Logout con éxito');
+      localStorage.removeItem('userId'); 
+      console.log('✅ Logout con éxito');
       return result;
     } catch (error) {
-      console.error('Error en AuthService.logoutUser:', error);
+      console.error('❌ Error en AuthService.logoutUser:', error);
       throw error;
+    }
+  }
+
+
+  async getCurrentUser() {
+    try {
+      const response = await fetch(`${this.baseUrl}/users/me`, {
+        method: 'GET',
+        credentials: 'include', 
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.warn('⚠️ No se pudo obtener el usuario actual (sesión expirada)');
+        return null;
+      }
+
+      const user = await response.json();
+      return user;
+    } catch (error) {
+      console.error('❌ Error en AuthService.getCurrentUser:', error);
+      return null;
     }
   }
 }
 
 const authService = new AuthService();
-
 export default authService;
