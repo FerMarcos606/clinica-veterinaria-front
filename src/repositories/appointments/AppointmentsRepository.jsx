@@ -44,6 +44,23 @@ class AppointmentsRepository {
         }
         return await response.json();
     }
+
+    async getById(id) {
+  try {
+    const response = await fetch(`${this.baseUrl}/appointments/${id}`, {
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener la cita (${response.status})`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en AppointmentsRepository.getById:', error);
+    throw error;
+  }
+}
 }
 
 export default AppointmentsRepository;
