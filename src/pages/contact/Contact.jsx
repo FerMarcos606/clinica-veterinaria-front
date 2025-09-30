@@ -39,7 +39,7 @@ const Contact = () => {
             <input type="email" name="email" placeholder="Email*" value={form.email} onChange={handleChange} required />
             <input type="tel" name="telefono" placeholder="Teléfono*" value={form.telefono} onChange={handleChange} required />
             <textarea name="mensaje" placeholder="Mensaje" value={form.mensaje} onChange={handleChange} />
-            <Button text='Mensaje' type='primary'></Button>
+            <Button text='Mensaje' type='primary' className="form-btn"></Button>
         </form>
 
         {/* Columna 2: Info + Horario */}

@@ -12,6 +12,7 @@ h2{
     background: #fff;
   }
   
+  
   /* Columna 1: formulario */
   .form {
     background: #fff;
@@ -32,19 +33,10 @@ h2{
     font-size: 16px;
   }
   
-  .form button.btn {
-    background: #4caf50;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-  }
-  .form button.btn:hover {
-    background: #388e3c;
-  }
+  .form-btn {
+    width: 100%;         /* ocupa lo mismo que los inputs */
+    margin-top: 10px;
+  } */
   
   /* Columna 2: info + horario */
   .col-info {
