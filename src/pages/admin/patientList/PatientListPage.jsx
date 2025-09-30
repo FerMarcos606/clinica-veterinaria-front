@@ -32,7 +32,7 @@ export const PatientList = () => {
     {
       header: "Detalles",
       render: (fila) => (
-        <Link to={`/pacientes/${fila.id_patient}`} className="leer-mas">
+        <Link to={`/detallePaciente/${fila.id_patient}`} className="leer-mas">
           Leer más
         </Link>
       )
@@ -41,11 +41,6 @@ export const PatientList = () => {
 
   const dataToShow = pacientes;
 
-
-
-
-
-  // 👇 Filtrar según búsqueda
   const filteredData = dataToShow.filter((p) =>
     Object.values(p).some((value) =>
       value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
