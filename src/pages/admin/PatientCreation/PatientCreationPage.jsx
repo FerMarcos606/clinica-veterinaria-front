@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './PatientCreationPage.css';
+import userService from "../../../services/user/UserService";
 import pacientsService from '../../../services/pacients/PacientsService';
 
 const PatientCreationPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [users, setUsers] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await userService.getUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error("Error cargando usuarios:", error);
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -36,7 +55,7 @@ const PatientCreationPage = () => {
 
       <div className="patient-creation-page__container">
         <form className="patient-creation-form" onSubmit={handleSubmit(onSubmit)}>
-          
+
           {submitError && (
             <div className="patient-creation-form__error patient-creation-form__error--general">
               {submitError}
@@ -47,7 +66,7 @@ const PatientCreationPage = () => {
             <h2 className="patient-creation-form__section-title">
               Datos del Paciente
             </h2>
-            
+
             <div className="patient-creation-form__row">
               <div className="patient-creation-form__field">
                 <label className="patient-creation-form__label">
@@ -63,7 +82,7 @@ const PatientCreationPage = () => {
                   <p className="patient-creation-form__error">{errors.identificationNumber.message}</p>
                 )}
               </div>
-              
+
               <div className="patient-creation-form__field">
                 <label className="patient-creation-form__label">
                   Nombre <span className="patient-creation-form__required">*</span>
@@ -138,42 +157,37 @@ const PatientCreationPage = () => {
                   <p className="patient-creation-form__error">{errors.breed.message}</p>
                 )}
               </div>
-
               <div className="patient-creation-form__field">
                 <label className="patient-creation-form__label">
-                  Sexo <span className="patient-creation-form__required">*</span>
+                  Tutor <span className="patient-creation-form__required">*</span>
                 </label>
-                <select
-                  disabled={isLoading}
-                  {...register('sex', { required: 'El sexo es obligatorio' })}
-                  className={`patient-creation-form__input ${errors.sex ? 'patient-creation-form__input--error' : ''}`}
-                >
-                  <option value="">Seleccione...</option>
-                  <option value="Female">Hembra</option>
-                  <option value="Male">Macho</option>
-                </select>
-                {errors.sex && (
-                  <p className="patient-creation-form__error">{errors.sex.message}</p>
+
+                {isLoadingUsers ? (
+                  <p>Cargando tutores...</p>
+                ) : (
+                  <select
+                    disabled={isLoading || isLoadingUsers}
+                    {...register("tutor", { required: "El tutor es obligatorio" })}
+                    className={`patient-creation-form__input ${errors.tutor ? "patient-creation-form__input--error" : ""}`}
+                  >
+                    <option value="">Seleccione un tutor...</option>
+                    {users.map((user) => (
+                      <option key={user.id_user} value={user.id_user}>
+                        {user.name} ({user.email})
+                      </option>
+                    ))}
+                  </select>
                 )}
-              </div>
-                      <div className="patient-creation-form__field">
-                <label className="patient-creation-form__label">
-                  ID del Tutor <span className="patient-creation-form__required">*</span>
-                </label>
-                <input
-                  type="number"
-                  disabled={isLoading}
-                  {...register('tutor', { required: 'El ID del tutor es obligatorio', valueAsNumber: true })}
-                  className={`patient-creation-form__input ${errors.tutor ? 'patient-creation-form__input--error' : ''}`}
-                />
+
                 {errors.tutor && (
                   <p className="patient-creation-form__error">{errors.tutor.message}</p>
                 )}
               </div>
+
             </div>
           </section>
 
-                
+
 
           <div className="patient-creation-form__submit">
             <button
