@@ -1,0 +1,50 @@
+/* Fondo oscuro detrás del modal */
+.successmodal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  /* Caja blanca central */
+  .successmodal-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Título */
+  .successmodal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Labels + inputs */
+  .successmodal-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  /* Botones */
+  .successmodal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  } */
