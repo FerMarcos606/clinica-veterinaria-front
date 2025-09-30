@@ -15,6 +15,17 @@ class UserService {
             throw error;
         }
     }
+
+    async getUserById(id) {
+        try {
+            const result = await this.userRepository.getById(id);
+            console.log(`Usuario con ID ${id} obtenido con éxito:`, result);
+            return result;
+        } catch (error) {
+            console.error(`Error en UserService.getUserById(${id}):`, error);
+            throw error;
+        }
+    }
 }
 
 const userService = new UserService();

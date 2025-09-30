@@ -68,7 +68,7 @@ useEffect(() => {
                 <div key={pet.id_patient} className="pet-card">
                   <h3>{pet.name}</h3>
                   <p><strong>Tratamiento actual:</strong> {pet.treatment || 'Ninguno'}</p>
-                  <button className="btn-secondary">Ver ficha</button>
+                  <Link to={`/detallePaciente/${pet.id_patient}`} className="btn-secondary">Ver ficha</Link>
                 </div>
               ))}
               <Link to="/crear-paciente" className='add-pet-card'>+ Añadir mascota</Link>
