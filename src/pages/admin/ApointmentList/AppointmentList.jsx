@@ -70,7 +70,7 @@ export const AppointmentList = () => {
     }
   };
 
-  // 🔹 Filtrado por búsqueda
+
   const filteredAppointments = appointments.filter((a) =>
     Object.values(a).some((value) =>
       value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
