@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import appointmentsService from "../../../services/appointments/AppointmentsService";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
@@ -10,6 +10,7 @@ import "./AppointmentList.css";
 export const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -55,11 +56,15 @@ export const AppointmentList = () => {
     return date.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
   };
 
- 
   const renderStatusButton = (fila) => {
     if (fila.status === "PENDIENTE") {
       return (
-        <button className="estado-btn atender">Atender</button>
+        <button
+          className="estado-btn atender"
+          onClick={() => navigate(`/atender-cita/${fila.id_appointment}`)}
+        >
+          Atender
+        </button>
       );
     } else if (fila.status === "ATENDIDA") {
       return <span className="estado-label atendida">Atendida</span>;
@@ -112,6 +117,11 @@ const renderStatusButtonCSS = `
   cursor: pointer;
   color: #1e4620;
   font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.estado-btn.atender:hover {
+  background-color: #75b875;
 }
 
 .estado-label {
@@ -131,6 +141,7 @@ const renderStatusButtonCSS = `
   color: #666;
 }
 `;
+
 
 if (!document.getElementById("appointment-status-css")) {
   const style = document.createElement("style");
