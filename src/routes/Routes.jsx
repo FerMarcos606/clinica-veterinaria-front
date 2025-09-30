@@ -12,6 +12,7 @@ import AppointmentDetails from "../pages/admin/AppointmentDetails/AppointmentDet
 import Contact from "../pages/contact/Contact";
 import Services from "../pages/services/Services";
 import WhoWeAre from "../pages/whoWeAre/whoWeAre";
+import ApointmentList from "../pages/admin/ApointmentList/AppointmentList";
 export default function AppRoutes () {
     return (
         <Routes>
@@ -31,6 +32,7 @@ export default function AppRoutes () {
           <Route path="/admin/user-list" element={<UserListPage />} />
 
           <Route path="/detallePaciente/:id" element={<PatientDetails />} />
+          <Route path="/listaCitas" element={<ApointmentList />} />
           
           </Routes>  
     )
