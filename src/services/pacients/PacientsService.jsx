@@ -32,8 +32,24 @@ class PacientsService {
             throw error;
         }
     }
+
+    async getPatientsByUserId(userId) {
+    try {
+      if (!userId) {
+        throw new Error("El ID del usuario es obligatorio");
+      }
+
+      const result = await this.pacientsRepository.getByUserId(userId);
+      console.log(`Pacientes del usuario ${userId} obtenidos con éxito:`, result);
+      return result;
+    } catch (error) {
+      console.error(`Error en PacientsService.getPatientsByUserId(${userId}):`, error);
+      throw error;
+    }
+  }
 }
 
+    
 const pacientsService = new PacientsService();
 
 export default pacientsService;

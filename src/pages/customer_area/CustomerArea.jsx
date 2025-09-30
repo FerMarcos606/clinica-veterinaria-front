@@ -3,6 +3,7 @@ import './CustomerArea.css';
 import { useAuth } from '../../context/AuthContext';
 import pacientsService from '../../services/pacients/PacientsService';
 import appointmentsService from '../../services/appointments/AppointmentsService';
+import { Link } from 'react-router';
 
 const CustomerArea = () => {
   const { user } = useAuth();
@@ -10,28 +11,36 @@ const CustomerArea = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPetsAndAppointments = async () => {
-      setError(null);
-      try {
-        const userPets = await pacientsService.getPatientsByUserId(user?.id);
-        setPets(userPets);
-      } catch (error) {
-        console.error("Error fetching user's pets:", error);
-      }
-      try {
-        const myAppointments = await appointmentsService.getMyAppointments();
-        setAppointments(myAppointments);
-      } catch (error) {
-        console.error("Error fetching user's appointments:", error);
-        setError("No se pudieron cargar las citas. Por favor, inténtelo de nuevo más tarde.");
-      }
-    };
+useEffect(() => {
+  const fetchPetsAndAppointments = async () => {
+    setError(null);
 
-    if (user) {
-      fetchPetsAndAppointments();
+    try {
+    
+      const userId = localStorage.getItem('userId');
+
+      if (!userId) {
+        console.error("No se encontró el userId en localStorage");
+        setError("Error: usuario no autenticado");
+        return;
+      }
+
+ 
+      const userPets = await pacientsService.getPatientsByUserId(userId);
+      setPets(userPets);
+
+
+      const myAppointments = await appointmentsService.getMyAppointments(userId);
+      setAppointments(myAppointments);
+
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario:", error);
+      setError("No se pudieron cargar tus datos. Inténtalo nuevamente.");
     }
-  }, [user]);
+  };
+
+  fetchPetsAndAppointments();
+}, []); 
 
   return (
     <div className="customer-area">
@@ -43,7 +52,6 @@ const CustomerArea = () => {
       </div>
 
       <div className="customer-content">
-        {/* Sección de mascotas (izquierda) */}
         <section className="pets-section">
           <div className="section-header">
             <h2>Mis mascotas</h2>
@@ -52,7 +60,7 @@ const CustomerArea = () => {
           {pets.length === 0 ? (
             <div className="empty-state">
               <p>No tienes mascotas registradas</p>
-              <button className="btn-primary">Añadir nueva mascota</button>
+              <Link to="/crear-paciente" className='btn-primary'>Añadir nueva mascota</Link>
             </div>
           ) : (
             <div className="pets-grid">
@@ -63,15 +71,11 @@ const CustomerArea = () => {
                   <button className="btn-secondary">Ver ficha</button>
                 </div>
               ))}
-              <button className="add-pet-card">
-                <span>+</span>
-                <p>Añadir nueva mascota</p>
-              </button>
+              <Link to="/crear-paciente" className='add-pet-card'>+ Añadir mascota</Link>
             </div>
           )}
         </section>
 
-        {/* Sección de citas (derecha) */}
         <section className="appointments-section">
           <div className="section-header">
             <h2>Mis citas</h2>
@@ -98,7 +102,6 @@ const CustomerArea = () => {
           )}
         </section>
 
-        {/* Información de contacto (abajo, ancho completo) */}
         <section className="contact-info">
           <div className="emergency-contact">
             <h3>Urgencias</h3>

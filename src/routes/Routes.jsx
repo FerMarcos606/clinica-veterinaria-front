@@ -15,7 +15,7 @@ export default function AppRoutes () {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/create-patients" element={<PatientCreationPage />} />
+          <Route path="/crear-paciente" element={<PatientCreationPage />} />
           <Route path="/customer-area" element={<CustomerArea />} />
 
           <Route path="/appointment-details" element={<AppointmentDetails />} />
