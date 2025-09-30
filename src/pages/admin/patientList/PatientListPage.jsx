@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
@@ -8,71 +8,73 @@ import './PatientListPage.css'
 import pacientsService from "../../../services/pacients/PacientsService";
 
 export const PatientList = () => {
-    const [pacientes, setPacientes] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(""); 
+  const [pacientes, setPacientes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-       useEffect(() => {
-        const fetchPacientes = async () => {
-          const data = await pacientsService.getPatients();
-          setPacientes(data);
-        };
-        fetchPacientes();
-      }, []);
+  useEffect(() => {
+    const fetchPacientes = async () => {
+      const data = await pacientsService.getPatients();
+      setPacientes(data);
+    };
+    fetchPacientes();
+  }, []);
 
-      const columnasPacientes = [
-        { header: "Id", accessor: "id_patient" },
-        {header: "Nº Identificación", accessor: "identificationNumber"},
-        { header: "Nombre", accessor: "name" },
-        { header: "Edad", accessor: "age" },
-        { header: "Familia", accessor: "family" },
-        { header: "Raza", accessor: "breed" },
-        { header: "Sexo", accessor: "sex" },
-        { header: "Dueño", accessor: "tutorFullName" },
-        
-        {
-            header: "Detalles",
-            render: (fila) => (
-              <Link to={`/pacientes/${fila.id_patient}`} className="leer-mas">
-                Leer más
-              </Link>
-            )
-          }
-      ];
+  const columnasPacientes = [
+    { header: "Id", accessor: "id_patient" },
+    { header: "Nº Identificación", accessor: "identificationNumber" },
+    { header: "Nombre", accessor: "name" },
+    { header: "Edad", accessor: "age" },
+    { header: "Familia", accessor: "family" },
+    { header: "Raza", accessor: "breed" },
+    { header: "Sexo", accessor: "sex" },
+    { header: "Dueño", accessor: "tutorFullName" },
 
-    const dataToShow = pacientes;
+    {
+      header: "Detalles",
+      render: (fila) => (
+        <Link to={`/pacientes/${fila.id_patient}`} className="leer-mas">
+          Leer más
+        </Link>
+      )
+    }
+  ];
 
-      
+  const dataToShow = pacientes;
 
 
 
-     // 👇 Filtrar según búsqueda
-    const filteredData = dataToShow.filter((p) =>
-        Object.values(p).some((value) =>
-        value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        )
-    );
 
-    return (
-        <>
-        <Hero text="Listado de pacientes"></Hero>
-        <div className="functional-section">
+
+  // 👇 Filtrar según búsqueda
+  const filteredData = dataToShow.filter((p) =>
+    Object.values(p).some((value) =>
+      value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
+  return (
+    <>
+      <Hero text="Listado de pacientes"></Hero>
+      <div className="functional-section">
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Button text="+ Crear nuevo" type="secondary"></Button>
-            <SearchBar
+          <Link to="/crear-paciente">
+            <Button text="+ Crear nuevo" type="secondary" />
+          </Link>
+          <SearchBar
             placeholder="Buscar paciente..."
             onSearch={(value) => setSearchTerm(value)}
-            />
-            <Button></Button>
+          />
+          <Button></Button>
         </span>
-        </div>
-        <div className="divider-div">
-            <hr className="divider" />
-        </div>
-        
+      </div>
+      <div className="divider-div">
+        <hr className="divider" />
+      </div>
 
-        <Table columnas={columnasPacientes} data={filteredData}></Table>
-        </>
-    )
+
+      <Table columnas={columnasPacientes} data={filteredData}></Table>
+    </>
+  )
 }
 
 export default PatientList
