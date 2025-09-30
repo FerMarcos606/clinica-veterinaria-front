@@ -7,12 +7,30 @@ import PageSubTitle from "../../../components/pageSubTitle/PageSubTitle";
 import InfoCard from "../../../components/infoCard/InfoCard";
 import pacientsService from "../../../services/pacients/PacientsService";
 import userService from "../../../services/user/UserService";
+import { useNavigate } from "react-router-dom";
+
 
 export const PatientDetails = () => {
   const { id } = useParams();
   const [paciente, setPaciente] = useState(null);
   const [tutor, setTutor] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+const handleDelete = async () => {
+  if (!window.confirm("¿Seguro que deseas eliminar este paciente? Esta acción no se puede deshacer.")) {
+    return;
+  }
+
+  try {
+    await pacientsService.deletePatient(id);
+    alert("Paciente eliminado con éxito");
+    navigate("/listaPacientes");
+  } catch (error) {
+    console.error("Error al eliminar paciente:", error);
+    alert("Ocurrió un error al eliminar el paciente.");
+  }
+};
 
   useEffect(() => {
     const fetchPatientDetails = async () => {
@@ -41,7 +59,7 @@ export const PatientDetails = () => {
   if (!paciente) {
     return <p>Cargando paciente...</p>;
   }
-
+  
   const patientFields = [
     { label: "Nº de identificación", key: "id_patient" },
     { label: "Nombre", key: "name" },
@@ -65,7 +83,7 @@ export const PatientDetails = () => {
             <Link to="/crear-paciente" state={{ patient: paciente }}>
         <Button text="Editar" />
       </Link>
-      <Button text="Eliminar" type="danger" />
+<Button text="Eliminar" type="danger" onClick={handleDelete} />
       <Square>
         <PageSubTitle text="Datos del paciente" />
         <InfoCard data={paciente} fields={patientFields} />

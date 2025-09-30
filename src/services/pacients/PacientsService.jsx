@@ -80,6 +80,21 @@ class PacientsService {
             throw error;
         }
     }
+
+    async deletePatient(id) {
+  try {
+    if (!id) {
+      throw new Error("El ID del paciente es obligatorio para eliminarlo");
+    }
+
+    const result = await this.pacientsRepository.delete(id);
+    console.log(`Paciente con ID ${id} eliminado con éxito`);
+    return result;
+  } catch (error) {
+    console.error(`Error en PacientsService.deletePatient(${id}):`, error);
+    throw error;
+  }
+}
   }
 
 
