@@ -1,3 +1,4 @@
+
 import PacientsRepository from '../../repositories/pacients/PacientsRepository';
 
 class PacientsService {
@@ -46,8 +47,25 @@ class PacientsService {
       console.error(`Error en PacientsService.getPatientsByUserId(${userId}):`, error);
       throw error;
     }
-  }
 }
+
+    async getPatientById(id) {
+    try {
+        if (!id) {
+        throw new Error("El ID del paciente es obligatorio");
+      }
+      const result = await this.pacientsRepository.getById(id);
+      console.log(`Paciente con ID ${id} obtenido con éxito:`, result);
+      return result;
+    } catch (error) {
+      console.error(`Error en PacientsService.getPatientById(${id}):`, error);
+      throw error;
+    }
+  }
+
+    
+  }
+
 
     
 const pacientsService = new PacientsService();

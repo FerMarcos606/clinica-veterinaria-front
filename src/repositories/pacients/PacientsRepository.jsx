@@ -46,6 +46,18 @@ class PacientsRepository {
 
   return await response.json();
 }
+
+async getById(id) {
+  const response = await fetch(`${this.baseUrl}/patients/${id}`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error al obtener el paciente (${response.status})`);
+  }
+
+  return await response.json();
+}
 }
 
 export default PacientsRepository;
