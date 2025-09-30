@@ -21,7 +21,7 @@ export default function AppRoutes () {
           <Route path="/crear-paciente" element={<PatientCreationPage />} />
           <Route path="/customer-area" element={<CustomerArea />} />
 
-          <Route path="/appointment-details" element={<AppointmentDetails />} />
+          <Route path="/atender-cita/:id" element={<AppointmentDetails />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/servicios" element={<Services />} />
           <Route path="/quienes-somos" element={<WhoWeAre />} />
