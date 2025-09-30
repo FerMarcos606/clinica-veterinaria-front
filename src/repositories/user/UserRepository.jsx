@@ -12,6 +12,16 @@ class UserRepository {
         }
         return await response.json();
     }
+
+    async getById(id) {
+        const response = await fetch(`${this.baseUrl}/users/${id}`, {
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error(`Error al obtener el usuario (${response.status})`);
+        }
+        return await response.json();
+    }
 }
 
 export default UserRepository;

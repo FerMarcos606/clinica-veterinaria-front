@@ -68,7 +68,7 @@ useEffect(() => {
                 <div key={pet.id_patient} className="pet-card">
                   <h3>{pet.name}</h3>
                   <p><strong>Tratamiento actual:</strong> {pet.treatment || 'Ninguno'}</p>
-                  <button className="btn-secondary">Ver ficha</button>
+                  <Link to={`/detallePaciente/${pet.id_patient}`} className="btn-secondary">Ver ficha</Link>
                 </div>
               ))}
               <Link to="/crear-paciente" className='add-pet-card'>+ Añadir mascota</Link>
@@ -86,7 +86,7 @@ useEffect(() => {
           ) : appointments.length === 0 ? (
             <div className="empty-state">
               <p>No tienes citas programadas</p>
-              <button className="btn-primary">Pedir nueva cita</button>
+              <Link to="/citas" className="btn-primary">Pedir nueva cita</Link>
             </div>
           ) : (
             <div className="appointments-content">
@@ -97,20 +97,9 @@ useEffect(() => {
 <p><strong>Hora:</strong> {new Date(appointment.appointmentDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
               ))}
-              <button className="btn-primary">Pedir nueva cita</button>
+            <Link to="/citas" className="btn-primary">Pedir nueva cita</Link>
             </div>
           )}
-        </section>
-
-        <section className="contact-info">
-          <div className="emergency-contact">
-            <h3>Urgencias</h3>
-            <p className="emergency-phone">666999666</p>
-          </div>
-          <div className="address">
-            <h3>Dirección</h3>
-            <p>c/ Bonifacio Cobacho 32, Gijón</p>
-          </div>
         </section>
       </div>
     </div>

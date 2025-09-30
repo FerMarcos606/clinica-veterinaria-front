@@ -30,7 +30,7 @@ export default function AppRoutes () {
           <Route path="/listaPacientes" element={<PatientList />} />
           <Route path="/admin/user-list" element={<UserListPage />} />
 
-          <Route path="/detallePaciente" element={<PatientDetails />} />
+          <Route path="/detallePaciente/:id" element={<PatientDetails />} />
           
           </Routes>  
     )
