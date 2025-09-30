@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Square from "../../../components/square/Square";
@@ -62,7 +62,9 @@ export const PatientDetails = () => {
   return (
     <>
       <Hero text="Detalles del Paciente" />
-      <Button text="Editar" />
+            <Link to="/crear-paciente" state={{ patient: paciente }}>
+        <Button text="Editar" />
+      </Link>
       <Button text="Eliminar" type="danger" />
       <Square>
         <PageSubTitle text="Datos del paciente" />

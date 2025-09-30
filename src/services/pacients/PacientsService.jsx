@@ -1,4 +1,3 @@
-
 import PacientsRepository from '../../repositories/pacients/PacientsRepository';
 
 class PacientsService {
@@ -63,7 +62,24 @@ class PacientsService {
     }
   }
 
-    
+    async updatePatient(id, patientData) {
+        try {
+            if (!id) {
+                throw new Error("El ID del paciente es obligatorio");
+            }
+            if (!patientData.name?.trim()) {
+                throw new Error('El nombre del paciente es obligatorio');
+            }
+
+            const result = await this.pacientsRepository.update(id, patientData);
+
+            console.log('Paciente actualizado con éxito:', result);
+            return result;
+        } catch (error) {
+            console.error('Error en PacientsService.updatePatient:', error);
+            throw error;
+        }
+    }
   }
 
 

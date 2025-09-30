@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import pacientsService from "../../../services/pacients/PacientsService";
 import userService from "../../../services/user/UserService";
 import { useAuth } from "../../../context/AuthContext";
@@ -7,12 +8,28 @@ import "./PatientCreationPage.css";
 
 const PatientCreationPage = () => {
   const { user } = useAuth();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const location = useLocation();
 
+  useEffect(() => {
+    if (location.state && location.state.patient) {
+      const patient = location.state.patient;
+      setIsEditMode(true);
+      setValue("identificationNumber", patient.identificationNumber);
+      setValue("name", patient.name);
+      setValue("image", patient.image);
+      setValue("age", patient.age);
+      setValue("family", patient.family);
+      setValue("breed", patient.breed);
+      setValue("sex", patient.sex);
+      setValue("tutor", patient.user_id);
+    }
+  }, [location, setValue]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -39,28 +56,28 @@ const PatientCreationPage = () => {
     setSubmitError("");
 
     try {
-
       if (user?.roles[0] !== "ROLE_ADMIN") {
         const userId = localStorage.getItem("userId");
         if (userId) {
           data.tutor = parseInt(userId, 10);
         } else {
-
           throw new Error("No se pudo determinar el tutor. Inicie sesión.");
         }
       } else {
-
         data.tutor = parseInt(data.tutor, 10);
       }
 
-      console.log("Enviando datos para crear paciente:", data);
-      await pacientsService.createPatient(data);
-      console.log("Datos del paciente creado:", data);
-      alert("¡Paciente creado con éxito!");
+      if (isEditMode) {
+        await pacientsService.updatePatient(location.state.patient.id_patient, data);
+        alert("¡Paciente actualizado con éxito!");
+      } else {
+        await pacientsService.createPatient(data);
+        alert("¡Paciente creado con éxito!");
+      }
 
     } catch (error) {
-      console.error("Error en la creación del paciente:", error);
-      setSubmitError(error.message || "Error al procesar la creación");
+      console.error(`Error en la ${isEditMode ? 'actualización' : 'creación'} del paciente:`, error);
+      setSubmitError(error.message || `Error al procesar la ${isEditMode ? 'actualización' : 'creación'}`);
     } finally {
       setIsLoading(false);
     }
@@ -71,7 +88,7 @@ const PatientCreationPage = () => {
       <div className="patient-creation-page__hero">
         <div className="patient-creation-page__hero-container">
           <h1 className="patient-creation-page__title">
-            Formulario de Creación de Paciente
+            {isEditMode ? "Formulario de Edición de Paciente" : "Formulario de Creación de Paciente"}
           </h1>
         </div>
       </div>
@@ -236,7 +253,7 @@ const PatientCreationPage = () => {
               disabled={isLoading}
               className={`patient-creation-form__button ${isLoading ? "patient-creation-form__button--loading" : ""}`}
             >
-              {isLoading ? "Creando..." : "Crear Paciente"}
+              {isLoading ? (isEditMode ? "Actualizando..." : "Creando...") : (isEditMode ? "Actualizar Paciente" : "Crear Paciente")}
             </button>
           </div>
         </form>
