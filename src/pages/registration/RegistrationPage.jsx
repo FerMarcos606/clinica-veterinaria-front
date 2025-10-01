@@ -11,7 +11,8 @@ const RegistrationPage = () => {
   const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
-   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); 
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -21,21 +22,18 @@ const RegistrationPage = () => {
 
     try {
       if (isEditMode && userId) {
-  
         const result = await userService.updateUser(userId, data);
         if (result) {
-          alert('¡Usuario actualizado con éxito!');
+          setSuccessMessage("✅ Usuario actualizado con éxito");
+          setIsSuccessModalOpen(true);
         }
       } else {
- 
         const result = await registerService.registerUser(data);
         if (result.success && result.status === 201) {
-          console.log('Registro realizado con éxito:', result.data);
-          console.log('Registro realizado con éxito:', result.data);
+          setSuccessMessage("✅ Registro realizado con éxito");
           setIsSuccessModalOpen(true);
         }
       }
-    
     } catch (error) {
       console.error('Error en el registro/edición:', error);
       setSubmitError(error.message || 'Error al procesar el registro/edición');
@@ -284,16 +282,16 @@ const RegistrationPage = () => {
             </div>
           </section>
           {isSuccessModalOpen && (
-                  <SuccessModal
-                    title="¡Registro realizado con éxito!"
-                    message="Haz click para ir al inicio"
-                    onClose={() => {
-                      setIsSuccessModalOpen(false);
-                      navigate("/");
-                    }}
-                    buttonText="Cerrar"
-                  />
-                )}
+            <SuccessModal
+              title={isEditMode ? "✅ Usuario actualizado con éxito" : "✅ Registro realizado con éxito"}
+              message={isEditMode ? "Tus datos han sido actualizados correctamente." : "Tu registro ha sido realizado correctamente."}
+              buttonText={isEditMode ? "Ir a mi área" : "Ir a inicio"}
+              onClose={() => {
+                setIsSuccessModalOpen(false);
+                navigate(isEditMode ? "/customer-area" : "/");
+              }}
+            />
+          )}
 
           {/* Submit Button */}
           <div className="registration-form__submit">
