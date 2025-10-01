@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import SuccessModal from "../../../components/successModal/SuccessModal";
+import DecisionModal from "../../../components/decisionModal/DecisionModal";
 import { useParams, Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
@@ -17,20 +19,25 @@ export const PatientDetails = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-const handleDelete = async () => {
-  if (!window.confirm("¿Seguro que deseas eliminar este paciente? Esta acción no se puede deshacer.")) {
-    return;
-  }
+  const [isDecisionModalOpen, setIsDecisionModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-  try {
-    await pacientsService.deletePatient(id);
-    alert("Paciente eliminado con éxito");
-    navigate("/listaPacientes");
-  } catch (error) {
-    console.error("Error al eliminar paciente:", error);
-    alert("Ocurrió un error al eliminar el paciente.");
-  }
-};
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.roles && user.roles.includes("ROLE_USER")) {
+      navigate("/customer-area");
+    }
+  }, [navigate]);
+
+  const handleDelete = async () => {
+    try {
+      await pacientsService.deletePatient(id);
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      console.error("Error al eliminar paciente:", error);
+      alert("Ocurrió un error al eliminar el paciente.");
+    }
+  };
 
   useEffect(() => {
     const fetchPatientDetails = async () => {
@@ -77,14 +84,40 @@ const handleDelete = async () => {
     { label: "Correo electrónico", key: "email" },
   ];
 
+  const handleModalClose = () => {
+    setIsSuccessModalOpen(false);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.roles?.[0] === "ROLE_ADMIN") {
+      navigate("/listaPacientes");
+    } else {
+      navigate("/customer-area");
+    }
+  };
+
   return (
     <>
       <Hero text="Detalles del Paciente" />
-            <Link to="/crear-paciente" state={{ patient: paciente }}>
-        <Button text="Editar" />
-      </Link>
-<Button text="Eliminar" type="danger" onClick={handleDelete} />
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0 2rem 0' }}>
+        <Link to="/crear-paciente" state={{ patient: paciente }}>
+          <Button text="Editar" />
+        </Link>
+        <Button text="Eliminar" type="danger" onClick={() => setIsDecisionModalOpen(true)} />
+      </div>
+      <DecisionModal
+        question="¿Seguro que deseas eliminar este paciente? Esta acción no se puede deshacer."
+        isOpen={isDecisionModalOpen}
+        onClose={() => setIsDecisionModalOpen(false)}
+        onSave={handleDelete}
+      />
       <Square>
+        {isSuccessModalOpen && (
+            <SuccessModal
+              title={"Paciente eliminado"}
+              message="Haz click para volver a la página de gestión"
+              buttonText="Cerrar"
+              onClose={handleModalClose}
+            />
+        )}
         <PageSubTitle text="Datos del paciente" />
         <InfoCard data={paciente} fields={patientFields} />
         {tutor && (
