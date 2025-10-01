@@ -93,7 +93,24 @@ export const AppointmentDetails = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSave={() => console.log("Tratamiento guardado")}
+        onSave={async () => {
+          const treatmentName = document.querySelector('.modal-input').value;
+          const treatmentDescription = document.querySelector('.modal-textarea').value;
+          if (treatmentName && treatmentDescription) {
+            try {
+              await treatmentsService.createTreatment(appointment.patientId, {
+                name: treatmentName,
+                description: treatmentDescription,
+                treatmentDate: new Date().toISOString(),
+              });
+              const treatmentsData = await treatmentsService.getTreatmentsByPatientId(appointment.patientId);
+              setTreatments(treatmentsData);
+            } catch (error) {
+              console.error("Error creating treatment:", error);
+              setError("Error al crear el tratamiento.");
+            }
+          }
+        }}
       />
     </>
   );
