@@ -274,7 +274,7 @@ const PatientCreationPage = () => {
         </form>
       </div>
 
-      {/* 🔹 Modal de éxito */}
+      {/* Modal de éxito */}
       <SuccessModal
         isOpen={isSuccessModalOpen}
         onClose={() => {
