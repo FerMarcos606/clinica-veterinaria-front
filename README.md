@@ -34,23 +34,23 @@ Tener instalado Node.js
 npm (incluido en Node.js) o yarn
 
 Pasos para correr el proyecto localmente
-# Clonar el repositorio
+### Clonar el repositorio
 git clone <url-del-repo>
 
-# Entrar al directorio
+### Entrar al directorio
 cd clinica-veterinaria-frontend
 
-# Instalar dependencias
+### Instalar dependencias
 npm install
 
-# Iniciar el servidor de desarrollo
+### Iniciar el servidor de desarrollo
 npm run dev
 
 Otros comandos útiles
-# Crear build para producción
+### Crear build para producción
 npm run build
 
-# Previsualizar el build
+### Previsualizar el build
 npm run preview
 
 ## 📂 Estructura del proyecto
