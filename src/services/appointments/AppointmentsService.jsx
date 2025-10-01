@@ -53,6 +53,18 @@ class AppointmentsService {
     throw error;
   }
 }
+
+    async updateAppointment(id, appointmentData) {
+        try {
+            const result = await this.appointmentsRepository.update(id, appointmentData);
+
+            console.log('Cita actualizada con éxito:', result);
+            return result;
+        } catch (error) {
+            console.error('Error en AppointmentsService.updateAppointment:', error);
+            throw error;
+        }
+    }
 }
 
 const appointmentsService = new AppointmentsService();

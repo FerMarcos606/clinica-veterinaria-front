@@ -61,6 +61,28 @@ class AppointmentsRepository {
     throw error;
   }
 }
+
+    async update(id, appointmentData) {
+        try {
+            const response = await fetch(`${this.baseUrl}/appointments/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(appointmentData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al actualizar la cita (${response.status})`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error en AppointmentsRepository.update:', error);
+            throw error;
+        }
+    }
 }
 
 export default AppointmentsRepository;

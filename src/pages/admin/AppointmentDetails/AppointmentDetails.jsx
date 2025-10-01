@@ -8,18 +8,21 @@ import pacientsService from "../../../services/pacients/PacientsService";
 import Modal from "../../../components/modal/Modal";
 import appointmentsService from "../../../services/appointments/AppointmentsService";
 import treatmentsService from "../../../services/treatments/TreatmentsService";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "./AppointmentDetails.css"
+import SuccessModal from "../../../components/successModal/SuccessModal";
 
 
 export const AppointmentDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [paciente, setPaciente] = useState(null);
   const [appointment, setAppointment] = useState(null);
   const [treatments, setTreatments] = useState([]);
   const [error, setError] = useState(null);
 
-  const { id } = useParams(); 
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +31,7 @@ export const AppointmentDetails = () => {
         const appointmentData = await appointmentsService.getAppointmentById(id);
         setAppointment(appointmentData);
 
-  
+
         if (appointmentData?.patientId) {
           const patientData = await pacientsService.getPatientById(appointmentData.patientId);
           setPaciente(patientData);
@@ -45,6 +48,28 @@ export const AppointmentDetails = () => {
 
     fetchData();
   }, [id]);
+
+  const handleFinalizeAppointment = async () => {
+  try {
+    // Evitamos doble click si ya está atendida
+    if (appointment.status === "ATENDIDA") return;
+
+    // Creamos un objeto actualizado
+    const updatedAppointment = { ...appointment, status: "ATENDIDA" };
+
+    // Llamamos al backend
+    await appointmentsService.updateAppointment(id, updatedAppointment);
+
+    // Actualizamos el estado local
+    setAppointment(updatedAppointment);
+
+    // ✅ Abrimos el modal sólo después del éxito
+    setIsSuccessModalOpen(true);
+  } catch (error) {
+    console.error("Error finalizando la cita:", error);
+    setError("Error al finalizar la cita.");
+  }
+};
 
   if (error) return <p>{error}</p>;
   if (!appointment || !paciente) return <p>Cargando datos...</p>;
@@ -88,10 +113,11 @@ export const AppointmentDetails = () => {
           type="primary"
           onClick={() => setIsModalOpen(true)}
         />
-
-        <Button 
-        text="Finalizar Cita"
-        type="primary"
+        <Button
+          text="Finalizar Cita"
+          type="primary"
+          onClick={handleFinalizeAppointment}
+          disabled={appointment.status === "ATENDIDA"}
         />
       </div>
 
@@ -117,6 +143,18 @@ export const AppointmentDetails = () => {
           }
         }}
       />
+
+   {isSuccessModalOpen && (
+  <SuccessModal
+    isOpen={true}
+    onClose={() => {
+      setIsSuccessModalOpen(false);
+      navigate('/listaCitas');
+    }}
+    message="Cita finalizada con éxito"
+    buttonText="Cerrar"
+  />
+)}
     </>
   );
 };
