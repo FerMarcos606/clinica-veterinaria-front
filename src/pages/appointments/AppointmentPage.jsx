@@ -11,7 +11,8 @@ const AppointmentsPage = () => {
   const navigate = useNavigate();
 
   const [isUrgent, setIsUrgent] = useState(false);
-  const [reason, setReason] = useState("Vacunación anual");
+  const [reason, setReason] = useState("");
+  const [date, setDate] = useState("");
   const [patientId, setPatientId] = useState("");
   const [pets, setPets] = useState([]);
   const [error, setError] = useState(null);
