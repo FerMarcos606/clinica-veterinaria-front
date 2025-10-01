@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Pets from "../../../assets/imgs/banner.png"; 
 import './HomePageAdmin.css'
-import PatientIcon from "../../../assets/imgs/patient.png";
-import ScheduleIcon from "../../../assets/imgs/schedule.png";
+import PatientIcon from "../../../assets/imgs/atencionFix.png";
+import ScheduleIcon from "../../../assets/imgs/scheduleFix.png";
 
 export const HomePageAdmin = () => {
     
