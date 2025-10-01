@@ -1,3 +1,15 @@
+.appointments__form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1rem 0.5rem;
+    box-sizing: border-box;
+}
+@media (max-width: 600px) {
+    .appointments__form {
+        max-width: 98vw;
+        padding: 0.5rem 0.2rem;
+    }
+}
 .appointments {
     box-sizing: border-box;
     max-width: 100vw;
@@ -102,19 +114,39 @@
     margin-bottom: 1.5rem;
 }
 
+
 .appointments__calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+
 .appointments__day {
-    padding: 0.5rem;
+    padding: 0.35rem;
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 0.95rem;
     border-radius: 50%;
     border: none;
     background: #f0f0f0;
     cursor: pointer;
+}
+@media (max-width: 600px) {
+    .appointments__calendar-days {
+        max-width: 220px;
+        gap: 0.15rem;
+    }
+    .appointments__day {
+        min-width: 24px;
+        min-height: 24px;
+        font-size: 0.8rem;
+        padding: 0.15rem;
+    }
 }
 
 .appointments__day--selected {

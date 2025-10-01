@@ -24,7 +24,7 @@ const AppointmentsPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
 
-  const times = ["09:00", "09:30", "10:00", "10:35", "11:00", "11:30", "16:30", "18:00"];
+  const times = ["09:00", "09:30", "10:00", "10:35", "11:00", "11:30", "12:00", "12:30", "16:30", "18:00"];
 
   useEffect(() => {
     const fetchPets = async () => {
