@@ -55,7 +55,6 @@ export const UserListPage = () => {
             placeholder="Buscar usuario..."
             onSearch={(value) => setSearchTerm(value)}
             />
-            <Button></Button>
         </span>
         </div>
         <div className="divider-div">
