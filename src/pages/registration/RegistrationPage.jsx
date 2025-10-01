@@ -3,12 +3,15 @@ import Hero from '../../components/hero/Hero';
 import { useForm } from 'react-hook-form';
 import userService from '../../services/user/UserService';
 import registerService from '../../services/register/RegisterService';
+import { useNavigate } from 'react-router-dom';
+import SuccessModal from '../../components/successModal/SuccessModal';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
   const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
+   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); 
   const [isEditMode, setIsEditMode] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -28,7 +31,8 @@ const RegistrationPage = () => {
         const result = await registerService.registerUser(data);
         if (result.success && result.status === 201) {
           console.log('Registro realizado con éxito:', result.data);
-          alert('¡Registro realizado con éxito!');
+          console.log('Registro realizado con éxito:', result.data);
+          setIsSuccessModalOpen(true);
         }
       }
     
@@ -39,6 +43,7 @@ const RegistrationPage = () => {
       setIsLoading(false);
     }
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
  
@@ -278,6 +283,17 @@ const RegistrationPage = () => {
               </div>
             </div>
           </section>
+          {isSuccessModalOpen && (
+                  <SuccessModal
+                    title="¡Registro realizado con éxito!"
+                    message="Haz click para ir al inicio"
+                    onClose={() => {
+                      setIsSuccessModalOpen(false);
+                      navigate("/");
+                    }}
+                    buttonText="Cerrar"
+                  />
+                )}
 
           {/* Submit Button */}
           <div className="registration-form__submit">

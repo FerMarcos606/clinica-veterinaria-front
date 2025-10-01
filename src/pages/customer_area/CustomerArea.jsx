@@ -35,20 +35,25 @@ const CustomerArea = () => {
         setPets(userPets);
         const myAppointments = await appointmentsService.getMyAppointments(userId);
         setAppointments(myAppointments);
-        let user = JSON.parse(localStorage.getItem("user"));
-        if (!user) {
-
-          const userServiceModule = await import('../../services/user/UserService');
-          user = await userServiceModule.default.getUserById(userId);
-          localStorage.setItem("user", JSON.stringify(user));
-        }
-        setUserDetails(user);
+        // Siempre obtener datos actualizados del backend
+        const userServiceModule = await import('../../services/user/UserService');
+        const updatedUser = await userServiceModule.default.getUserById(userId);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUserDetails(updatedUser);
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
         setError("No se pudieron cargar tus datos. Inténtalo nuevamente.");
       }
     };
     fetchPetsAndAppointments();
+    // Escuchar cambios en la url para recargar datos tras edición
+    const handleFocus = () => {
+      fetchPetsAndAppointments();
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   // ✅ Eliminar cita
