@@ -5,6 +5,7 @@ import pacientsService from '../../services/pacients/PacientsService';
 import appointmentsService from '../../services/appointments/AppointmentsService';
 import { Link } from 'react-router';
 import Hero from '../../components/hero/Hero';
+import Button from '../../components/button/Button';
 
 
 const CustomerArea = () => {
@@ -96,6 +97,7 @@ useEffect(() => {
                   <p><strong>Mascota:</strong> {appointment.patientName}</p>
            <p><strong>Fecha:</strong> {new Date(appointment.appointmentDatetime).toLocaleDateString()}</p>
 <p><strong>Hora:</strong> {new Date(appointment.appointmentDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <Button text = "Anular"></Button>
                 </div>
               ))}
             <Link to="/citas" className="btn-primary">Pedir nueva cita</Link>
