@@ -151,7 +151,7 @@ export const AppointmentDetails = () => {
       setIsSuccessModalOpen(false);
       navigate('/listaCitas');
     }}
-    message="Cita finalizada con éxito"
+    message="✅Cita finalizada con éxito"
     buttonText="Cerrar"
   />
 )}
