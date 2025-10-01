@@ -84,9 +84,14 @@ export const AppointmentDetails = () => {
 
       <div className="button-container">
         <Button
-          text="Añadir tratamiento"
+          text="Añadir Tratamiento"
           type="primary"
           onClick={() => setIsModalOpen(true)}
+        />
+
+        <Button 
+        text="Finalizar Cita"
+        type="primary"
         />
       </div>
 
