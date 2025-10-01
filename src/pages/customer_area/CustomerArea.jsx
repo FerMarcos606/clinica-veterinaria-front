@@ -90,6 +90,11 @@ const CustomerArea = () => {
           <div>
             <div className="user-details-section">
               <h2 className="user-details-title">Datos del usuario</h2>
+              <div style={{ marginBottom: '1rem' }}>
+                <Link to="/register">
+                  <Button text="Editar mis datos" type="primary" />
+                </Link>
+              </div>
               {userDetails ? (
                 <ul className="user-details-list">
                   {[
@@ -184,7 +189,7 @@ const CustomerArea = () => {
                           minute: "2-digit",
                         })}
                       </p>
-                      {/* 🔘 Botón anular con el modal de confirmación */}
+                      {/*  Botón anular con el modal de confirmación */}
                       <Button
                         text="Anular"
                         type="secondary"
