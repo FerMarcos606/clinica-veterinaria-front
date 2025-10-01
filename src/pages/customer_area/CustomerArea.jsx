@@ -205,7 +205,7 @@ const CustomerArea = () => {
         </div>
       </div>
 
-      {/* 🟢 Modal de confirmación */}
+      {/*  Modal de confirmación */}
       <DecisionModal
         question="¿Seguro que deseas anular esta cita?"
         isOpen={isConfirmModalOpen}
@@ -213,7 +213,7 @@ const CustomerArea = () => {
         onSave={handleDeleteAppointment}
       />
 
-      {/* 🟢 Modal de éxito */}
+      {/*  Modal de éxito */}
       {isSuccessModalOpen && (
         <SuccessModal
           title={successMessage}
