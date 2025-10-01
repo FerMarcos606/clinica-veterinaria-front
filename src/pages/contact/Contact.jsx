@@ -32,7 +32,7 @@ const Contact = () => {
       <Hero text='Contacto' />
       <h2>Llámanos, escríbenos o ven a nuestras instalaciones</h2>
 
-      <main className="main">
+      <main className="contact-main">
         {/* Columna 1: Formulario */}
         <form onSubmit={handleSubmit} className="form">
             <input type="text" name="nombre" placeholder="Nombre*" value={form.nombre} onChange={handleChange} required />
