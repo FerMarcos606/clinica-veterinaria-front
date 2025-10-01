@@ -64,9 +64,12 @@ useEffect(() => {
             <div className="pets-grid">
               {pets.map(pet => (
                 <div key={pet.id_patient} className="pet-card">
-                  <h3>{pet.name}</h3>
-                  <p><strong>Tratamiento actual:</strong> {pet.treatment || 'Ninguno'}</p>
-                  <Link to={`/detallePaciente/${pet.id_patient}`} className="btn-secondary">Ver ficha</Link>
+                  <h3 className='pet-name'>{pet.name}</h3>
+                  <img src={pet.image} alt="Mascota" className="pet-image"></img>
+                  <div className='btn-container'>
+                     <Link to={`/detallePaciente/${pet.id_patient}`} className="btn-secondary">Ver ficha</Link>
+                    </div>
+                 
                 </div>
               ))}
               <Link to="/crear-paciente" className='add-pet-card'>+ Añadir mascota</Link>
