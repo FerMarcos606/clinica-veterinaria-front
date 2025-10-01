@@ -64,7 +64,7 @@ class AppointmentsService {
     }
   }
 
-  // ✅ NUEVO MÉTODO: eliminar cita
+
   async deleteAppointment(id) {
     try {
       const result = await this.appointmentsRepository.delete(id);
