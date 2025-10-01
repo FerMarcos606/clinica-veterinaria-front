@@ -9,6 +9,7 @@ import PageSubTitle from "../../../components/pageSubTitle/PageSubTitle";
 import InfoCard from "../../../components/infoCard/InfoCard";
 import pacientsService from "../../../services/pacients/PacientsService";
 import userService from "../../../services/user/UserService";
+import treatmentsService from "../../../services/treatments/TreatmentsService";
 import { useNavigate } from "react-router-dom";
 
 
@@ -17,6 +18,7 @@ export const PatientDetails = () => {
   const [paciente, setPaciente] = useState(null);
   const [tutor, setTutor] = useState(null);
   const [error, setError] = useState(null);
+  const [treatments, setTreatments] = useState([]);
   const navigate = useNavigate();
 
   const [isDecisionModalOpen, setIsDecisionModalOpen] = useState(false);
@@ -49,6 +51,12 @@ export const PatientDetails = () => {
           const tutorData = await userService.getUserById(patientData.user_id);
           setTutor(tutorData);
           console.log("Tutor del paciente:", tutorData);
+        }
+
+        // Cargar tratamientos del paciente
+        if (patientData && patientData.id_patient) {
+          const treatmentsData = await treatmentsService.getTreatmentsByPatientId(patientData.id_patient);
+          setTreatments(treatmentsData);
         }
       } catch (err) {
         setError("Error al cargar los detalles del paciente.");
@@ -94,6 +102,12 @@ export const PatientDetails = () => {
     }
   };
 
+  const treatmentFields = [
+    { label: "Nombre", key: "name" },
+    { label: "Descripción", key: "description" },
+    { label: "Fecha", key: "treatmentDate" },
+  ];
+
   return (
     <>
       <Hero text="Detalles del Paciente" />
@@ -126,9 +140,14 @@ export const PatientDetails = () => {
             <InfoCard data={tutor} fields={tutorFields} />
           </>
         )}
-        {/* Placeholder for other sections */}
         <PageSubTitle text="Historia clínica" />
-        <InfoCard data={{}} fields={[]} />
+        {treatments.length > 0 ? (
+          treatments.map((treatment) => (
+            <InfoCard key={treatment.id} data={treatment} fields={treatmentFields} />
+          ))
+        ) : (
+          <p>No hay tratamientos para este paciente.</p>
+        )}
         <PageSubTitle text="Consultas" />
         <InfoCard data={{}} fields={[]} />
       </Square>
