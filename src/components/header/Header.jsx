@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import logo from "../../assets/logos/MargaritaLogo.png";
-import iconInicioSesion from "../../assets/icons/IconInicioSesion.png";
 import "./Header.css";
 import LoginModal from "../login_modal/LoginModal";
 import { useAuth } from "../../context/AuthContext";
@@ -57,9 +56,9 @@ const Header = () => {
                 Hola, <strong>{user?.name || "Usuario"}</strong>
               </span>
               <div className="header__user-options">
-                <button onClick={handleAreaClick} className="header__user-link">
+                <Link onClick={handleAreaClick} className="header__user-link">
                   Área personal
-                </button>
+                </Link>
                 <span>|</span>
                 <button
                   onClick={logout}

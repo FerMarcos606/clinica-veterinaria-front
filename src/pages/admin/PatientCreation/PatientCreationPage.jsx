@@ -10,15 +10,15 @@ import SuccessModal from "../../../components/successModal/SuccessModal";
 
 const PatientCreationPage = () => {
   const { user } = useAuth();
-  const navigate = useNavigate(); // 👈 para redirigir
+  const navigate = useNavigate(); 
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 👈 controla el modal
-  const [successMessage, setSuccessMessage] = useState(""); // 👈 texto dinámico del modal
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); 
+  const [successMessage, setSuccessMessage] = useState(""); 
   const location = useLocation();
 
   useEffect(() => {
