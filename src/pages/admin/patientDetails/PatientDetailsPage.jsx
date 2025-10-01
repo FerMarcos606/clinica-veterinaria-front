@@ -1,176 +1,106 @@
-import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Square from "../../../components/square/Square";
 import PageSubTitle from "../../../components/pageSubTitle/PageSubTitle";
 import InfoCard from "../../../components/infoCard/InfoCard";
+import pacientsService from "../../../services/pacients/PacientsService";
+import userService from "../../../services/user/UserService";
+import { useNavigate } from "react-router-dom";
+
 
 export const PatientDetails = () => {
-
-    const { id } = useParams(); // saca el id de la URL /pacientes/:id
-    /* const [paciente, setPaciente] = useState(null);
-
-  useEffect(() => {
-    const fetchPaciente = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/v1/patients/${id}`);
-        const data = await response.json();
-        setPaciente(data);
-      } catch (err) {
-        console.error("Error cargando paciente:", err);
-      }
-    };
-    fetchPaciente();
-  }, [id]);
-
-  if (!paciente) return <p>Cargando paciente...</p>; */
-
-  // 🔹 Datos de ejemplo
-  const paciente = {
-    id: "0002",
-    nombre: "Calipso",
-    edad: "3 años",
-    especie: "Perro",
-    raza: "Bóxer",
-    sexo: "Macho"
-  };
-
-  // Definimos qué campos queremos mostrar
-  const patientFields = [
-    { label: "Nº de identificación", key: "id" },
-    { label: "Nombre", key: "nombre" },
-    { label: "Edad", key: "edad" },
-    { label: "Especie", key: "especie" },
-    { label: "Raza", key: "raza" },
-    { label: "Sexo", key: "sexo" }
-  ];
-
-  /*Tutor*/
-
-  /* 
   const { id } = useParams();
+  const [paciente, setPaciente] = useState(null);
   const [tutor, setTutor] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+const handleDelete = async () => {
+  if (!window.confirm("¿Seguro que deseas eliminar este paciente? Esta acción no se puede deshacer.")) {
+    return;
+  }
+
+  try {
+    await pacientsService.deletePatient(id);
+    alert("Paciente eliminado con éxito");
+    navigate("/listaPacientes");
+  } catch (error) {
+    console.error("Error al eliminar paciente:", error);
+    alert("Ocurrió un error al eliminar el paciente.");
+  }
+};
 
   useEffect(() => {
-    const fetchTutor = async () => {
+    const fetchPatientDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/`); Comprobar endpoint
-        const data = await response.json();
-        setTutor(data);
+        const patientData = await pacientsService.getPatientById(id);
+        setPaciente(patientData);
+
+        if (patientData && patientData.user_id) {
+          const tutorData = await userService.getUserById(patientData.user_id);
+          setTutor(tutorData);
+          console.log("Tutor del paciente:", tutorData);
+        }
       } catch (err) {
-        console.error("Error cargando dueño:", err);
+        setError("Error al cargar los detalles del paciente.");
+        console.error("Error cargando detalles del paciente:", err);
       }
     };
-    fetchTutor();
+
+    fetchPatientDetails();
   }, [id]);
 
-  if (!tutor) return <p>Cargando datos del dueño...</p>; */
+  if (error) {
+    return <p>{error}</p>;
+  }
 
-  // 🔹 Datos de ejemplo
-  const tutor = {
-    nombre: "Jack",
-    apellido: "Sparrow",
-    telefono: 928913941,
-    DNI: "28374987Q",
-    correo: "capitanjack@gmail.com",
-  };
+  if (!paciente) {
+    return <p>Cargando paciente...</p>;
+  }
+  
+  const patientFields = [
+    { label: "Nº de identificación", key: "id_patient" },
+    { label: "Nombre", key: "name" },
+    { label: "Edad", key: "age" },
+    { label: "Especie", key: "family" },
+    { label: "Raza", key: "breed" },
+    { label: "Sexo", key: "sex" },
+  ];
 
-  // Definimos qué campos queremos mostrar
   const tutorFields = [
-    { label: "Nombre", key: "nombre" },
-    { label: "Apellido", key: "apellido" },
-    { label: "Teléfono", key: "telefono" },
-    { label: "DNI", key: "DNI" },
-    { label: "Correo electrónico", key: "correo" },
+    { label: "Nombre", key: "name" },
+    { label: "Apellido", key: "surname" },
+    { label: "Teléfono", key: "phone" },
+    { label: "DNI", key: "dni" },
+    { label: "Correo electrónico", key: "email" },
   ];
 
-  /*Tratamiento*/
+  return (
+    <>
+      <Hero text="Detalles del Paciente" />
+            <Link to="/crear-paciente" state={{ patient: paciente }}>
+        <Button text="Editar" />
+      </Link>
+<Button text="Eliminar" type="danger" onClick={handleDelete} />
+      <Square>
+        <PageSubTitle text="Datos del paciente" />
+        <InfoCard data={paciente} fields={patientFields} />
+        {tutor && (
+          <>
+            <PageSubTitle text="Datos del dueño" />
+            <InfoCard data={tutor} fields={tutorFields} />
+          </>
+        )}
+        {/* Placeholder for other sections */}
+        <PageSubTitle text="Historia clínica" />
+        <InfoCard data={{}} fields={[]} />
+        <PageSubTitle text="Consultas" />
+        <InfoCard data={{}} fields={[]} />
+      </Square>
+    </>
+  );
+};
 
-  /* 
-  const { id } = useParams();
-  const [tratamiento, setTratamiento] = useState(null);
-
-  useEffect(() => {
-    const fetchTratamiento = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/v1/`); Comprobar endpoint
-        const data = await response.json();
-        setTratamiento(data);
-      } catch (err) {
-        console.error("Error cargando tratamiento:", err);
-      }
-    };
-    fetchTratamiento();
-  }, [id]);
-
-  if (!tratamiento) return <p>Cargando datos del tratamiento...</p>; */
-
-  // 🔹 Datos de ejemplo
-  const tratamiento = {
-    nombre: "Vacunación obligatoria",
-    descripcion: "Vacuna antirábica",
-    fecha: "25-09-2025",
-  };
-
-  // Definimos qué campos queremos mostrar
-  const tratamientoFields = [
-    { label: "Nombre", key: "nombre" },
-    { label: "Descripción", key: "descripcion" },
-    { label: "Fecha", key: "fecha" },
-  ];
-
-  /*Consulta*/
-
-  /* 
-  const { id } = useParams();
-  const [consulta, setConsulta] = useState(null);
-
-  useEffect(() => {
-    const fetchConsulta = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/v1/`); Comprobar endpoint
-        const data = await response.json();
-        setConsulta(data);
-      } catch (err) {
-        console.error("Error cargando antiguas consultas:", err);
-      }
-    };
-    fetchConsulta();
-  }, [id]);
-
-  if (!consulta) return <p>Cargando antiguas consultas...</p>; */
-
-  // 🔹 Datos de ejemplo
-  const consulta = {
-    fecha: "25-09-2025",
-    descripcion: "Vacuna antirábica",
-    nombre: "Vacunación obligatoria",
-  };
-
-  // Definimos qué campos queremos mostrar
-  const consultaFields = [
-    { label: "Fecha", key: "fecha" },
-    { label: "Motivo", key: "descripcion" },
-    { label: "Tratamiento", key: "nombre" },
-  ];
-    return (
-        <>
-        <Hero text="Detalles"></Hero>
-        <Button text="Editar"></Button>
-        <Button text="Eliminar" type="danger"></Button>
-        <Square>
-            <PageSubTitle text="Datos del paciente"></PageSubTitle>
-            <InfoCard data={paciente} fields={patientFields}></InfoCard>
-            <PageSubTitle text="Datos del dueño"></PageSubTitle>
-            <InfoCard data={tutor} fields={tutorFields}></InfoCard>
-            <PageSubTitle text="Historia clínica"></PageSubTitle>
-            <InfoCard data={tratamiento} fields={tratamientoFields}></InfoCard>
-            <PageSubTitle text="Consultas"></PageSubTitle>
-            <InfoCard data={consulta} fields={consultaFields}></InfoCard>
-        </Square>
-        </>
-    )
-}
-
-export default PatientDetails
+export default PatientDetails;

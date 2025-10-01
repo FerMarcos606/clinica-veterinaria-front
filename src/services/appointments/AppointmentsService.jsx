@@ -38,6 +38,21 @@ class AppointmentsService {
             throw error;
         }
     }
+
+    async getAppointmentById(id) {
+  try {
+    if (!id) {
+      throw new Error("El ID de la cita es obligatorio");
+    }
+
+    const result = await this.appointmentsRepository.getById(id);
+    console.log(`Cita con ID ${id} obtenida con éxito:`, result);
+    return result;
+  } catch (error) {
+    console.error(`Error en AppointmentsService.getAppointmentById(${id}):`, error);
+    throw error;
+  }
+}
 }
 
 const appointmentsService = new AppointmentsService();

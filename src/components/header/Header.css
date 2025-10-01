@@ -75,6 +75,63 @@
     color: #1A542A;
 }
 
+.header__user-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.header__user-greeting {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.header__user-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.header__user-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.header__user-link:hover {
+  color: #007bff;
+}
+
+.header__user-link--logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d33;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.header__auth-options {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header__auth-link {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.header__auth-link:hover {
+  text-decoration: underline;
+}
+
+.header__auth-separator {
+  color: #aaa;
+}
 
 @media (max-width: 768px) {
     .header {

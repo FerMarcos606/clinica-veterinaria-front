@@ -12,6 +12,7 @@ import AppointmentDetails from "../pages/admin/AppointmentDetails/AppointmentDet
 import Contact from "../pages/contact/Contact";
 import Services from "../pages/services/Services";
 import WhoWeAre from "../pages/whoWeAre/whoWeAre";
+import ApointmentList from "../pages/admin/ApointmentList/AppointmentList";
 import HomePageAdmin from "../pages/admin/homePage/HomePageAdmin";
 export default function AppRoutes () {
     return (
@@ -21,7 +22,7 @@ export default function AppRoutes () {
           <Route path="/crear-paciente" element={<PatientCreationPage />} />
           <Route path="/customer-area" element={<CustomerArea />} />
 
-          <Route path="/appointment-details" element={<AppointmentDetails />} />
+          <Route path="/atender-cita/:id" element={<AppointmentDetails />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/servicios" element={<Services />} />
           <Route path="/quienes-somos" element={<WhoWeAre />} />
@@ -33,7 +34,8 @@ export default function AppRoutes () {
           <Route path="/listaPacientes" element={<PatientList />} />
           <Route path="/admin/user-list" element={<UserListPage />} />
 
-          <Route path="/detallePaciente" element={<PatientDetails />} />
+          <Route path="/detallePaciente/:id" element={<PatientDetails />} />
+          <Route path="/listaCitas" element={<ApointmentList />} />
           
           </Routes>  
     )
