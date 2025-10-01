@@ -4,7 +4,7 @@ h2{
     font-size: 18px;
 }
 
-.main {
+.contact-main {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr; /* Formulario más ancho, info más estrecha, mapa ancho */
     gap: 20px;
