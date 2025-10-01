@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import pacientsService from "../../../services/pacients/PacientsService";
 import userService from "../../../services/user/UserService";
 import { useAuth } from "../../../context/AuthContext";
 import "./PatientCreationPage.css";
+import SuccessModal from "../../../components/successModal/SuccessModal";
+
 
 const PatientCreationPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate(); // 👈 para redirigir
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 👈 controla el modal
+  const [successMessage, setSuccessMessage] = useState(""); // 👈 texto dinámico del modal
   const location = useLocation();
 
   useEffect(() => {
@@ -50,7 +55,6 @@ const PatientCreationPage = () => {
     fetchUsers();
   }, [user]);
 
-
   const onSubmit = async (data) => {
     setIsLoading(true);
     setSubmitError("");
@@ -69,11 +73,23 @@ const PatientCreationPage = () => {
 
       if (isEditMode) {
         await pacientsService.updatePatient(location.state.patient.id_patient, data);
-        alert("¡Paciente actualizado con éxito!");
+        setSuccessMessage("¡Paciente actualizado con éxito!"); 
       } else {
         await pacientsService.createPatient(data);
-        alert("¡Paciente creado con éxito!");
+        setSuccessMessage("¡Paciente creado con éxito!"); 
       }
+
+     
+      setIsSuccessModalOpen(true);
+
+   
+      setTimeout(() => {
+        if (user?.roles[0] === "ROLE_ADMIN") {
+          navigate("/listaPacientes");
+        } else {
+          navigate("/customer-area");
+        }
+      }, 2000); 
 
     } catch (error) {
       console.error(`Error en la ${isEditMode ? 'actualización' : 'creación'} del paciente:`, error);
@@ -190,6 +206,7 @@ const PatientCreationPage = () => {
                 {errors.breed && <p className="patient-creation-form__error">{errors.breed.message}</p>}
               </div>
 
+              {/* Sexo */}
               <div className="patient-creation-form__field">
                 <label className="patient-creation-form__label">
                   Sexo <span className="patient-creation-form__required">*</span>
@@ -203,12 +220,10 @@ const PatientCreationPage = () => {
                   <option value="Macho">Macho</option>
                   <option value="Hembra">Hembra</option>
                 </select>
-                {errors.sex && (
-                  <p className="patient-creation-form__error">{errors.sex.message}</p>
-                )}
+                {errors.sex && <p className="patient-creation-form__error">{errors.sex.message}</p>}
               </div>
 
-              {/* 🔹 Campo Tutor dinámico */}
+              {/* Tutor dinámico */}
               {user?.roles[0] === "ROLE_ADMIN" ? (
                 <div className="patient-creation-form__field">
                   <label className="patient-creation-form__label">
@@ -258,6 +273,21 @@ const PatientCreationPage = () => {
           </div>
         </form>
       </div>
+
+      {/* 🔹 Modal de éxito */}
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => {
+          setIsSuccessModalOpen(false);
+          if (user?.roles[0] === "ROLE_ADMIN") {
+            navigate("/listaPacientes");
+          } else {
+            navigate("/customer-area");
+          }
+        }}
+        title="Operación completada con éxito"
+        text={successMessage}
+      />
     </div>
   );
 };
