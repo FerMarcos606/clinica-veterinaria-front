@@ -6,6 +6,8 @@ import "./AppointmentPage.css";
 import { useNavigate } from "react-router-dom";
 
 
+import SuccessModal from "../../components/successModal/SuccessModal";
+
 const AppointmentsPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -194,15 +196,12 @@ const AppointmentsPage = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>✅ Cita creada con éxito</h2>
-            <p>Tu cita ha sido registrada correctamente.</p>
-            <button onClick={handleModalClose} className="modal__button">
-              Ir a mi área
-            </button>
-          </div>
-        </div>
+        <SuccessModal
+          title="✅ Cita creada con éxito"
+          message="Tu cita ha sido registrada correctamente."
+          buttonText="Ir a mi área"
+          onClose={handleModalClose}
+        />
       )}
     </div>
   );
