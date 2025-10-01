@@ -1,3 +1,46 @@
+/* Estilos para la sección de detalles del usuario */
+.user-details-section {
+  background: var(--color-white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+  border-left: 6px solid var(--color-primary);
+  max-width: 350px;
+}
+.user-details-title {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.user-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.user-details-item {
+  margin-bottom: 0.7rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-details-label {
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+.user-details-value {
+  color: var(--color-text-medium);
+  font-size: 0.98rem;
+}
+.user-details-empty {
+  text-align: center;
+  color: var(--color-error);
+  font-weight: 500;
+}
 .customer-area {
   min-height: 100vh;
   background-color: var(--color-background-light);
