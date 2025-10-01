@@ -11,6 +11,7 @@ import pacientsService from "../../../services/pacients/PacientsService";
 import userService from "../../../services/user/UserService";
 import treatmentsService from "../../../services/treatments/TreatmentsService";
 import { useNavigate } from "react-router-dom";
+import "./PatientDetailsPage.css";
 
 
 export const PatientDetails = () => {
@@ -146,10 +147,8 @@ export const PatientDetails = () => {
             <InfoCard key={treatment.id} data={treatment} fields={treatmentFields} />
           ))
         ) : (
-          <p>No hay tratamientos para este paciente.</p>
+          <p className="no-treatments">No hay tratamientos para este paciente.</p>
         )}
-        <PageSubTitle text="Consultas" />
-        <InfoCard data={{}} fields={[]} />
       </Square>
     </>
   );
