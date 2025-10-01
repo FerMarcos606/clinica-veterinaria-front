@@ -3,7 +3,7 @@ import './CustomerArea.css';
 // import { useAuth } from '../../context/AuthContext';
 import pacientsService from '../../services/pacients/PacientsService';
 import appointmentsService from '../../services/appointments/AppointmentsService';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import Hero from '../../components/hero/Hero';
 import Button from '../../components/button/Button';
 import SuccessModal from '../../components/successModal/SuccessModal';
@@ -20,6 +20,7 @@ const CustomerArea = () => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); 
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPetsAndAppointments = async () => {
@@ -194,14 +195,22 @@ const CustomerArea = () => {
                           minute: "2-digit",
                         })}
                       </p>
-                      {/*  Botón anular con el modal de confirmación */}
-                      <Button
-                        text="Anular"
-                        type="secondary"
-                        onClick={() =>
-                          handleOpenConfirmModal(appointment.id_appointment)
-                        }
-                      />
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <Button
+                          text="Anular"
+                          type="secondary"
+                          onClick={() =>
+                            handleOpenConfirmModal(appointment.id_appointment)
+                          }
+                        />
+                        <Button
+                          text="Editar"
+                          type="primary"
+                          onClick={() =>
+                            navigate('/citas', { state: { appointment } })
+                          }
+                        />
+                      </div>
                     </div>
                   ))}
                   <Link to="/citas" className="btn-primary">
