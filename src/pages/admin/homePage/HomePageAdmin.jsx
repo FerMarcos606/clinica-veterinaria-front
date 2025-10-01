@@ -24,14 +24,14 @@ export const HomePageAdmin = () => {
             <div className="home-admin-options">
             <div className="home-admin-option">
             <img src={PatientIcon} alt="Pacientes" className="home-admin-icon" />
-            <Link to="/" className="home-admin-link">
+            <Link to="/listaPacientes" className="home-admin-link">
                 Ver lista de pacientes
             </Link>
             </div>
 
             <div className="home-admin-option">
             <img src={ScheduleIcon} alt="Agenda" className="home-admin-icon" />
-            <Link to="/" className="home-admin-link">
+            <Link to="/listaCitas" className="home-admin-link">
                 Tu agenda
             </Link>
             </div>

@@ -3,21 +3,26 @@ import appointmentsService from "../../services/appointments/AppointmentsService
 import pacientsService from '../../services/pacients/PacientsService';
 import { useAuth } from "../../context/AuthContext";
 import "./AppointmentPage.css";
+import { useNavigate } from "react-router-dom";
+
 
 const AppointmentsPage = () => {
- const { user } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [isUrgent, setIsUrgent] = useState(false);
-  const [reason, setReason] = useState("Vacunación anual");
+  const [reason, setReason] = useState("");
+  const [date, setDate] = useState("");
   const [patientId, setPatientId] = useState("");
   const [pets, setPets] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
 
   const times = ["09:00", "09:30", "10:00", "10:35", "11:00", "11:30", "16:30", "18:00"];
-
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -32,7 +37,7 @@ const AppointmentsPage = () => {
         setPets(petsData);
 
         if (petsData.length > 0) {
-          setPatientId(petsData[0].id_patient); 
+          setPatientId(petsData[0].id_patient);
         }
       } catch (err) {
         console.error("Error al cargar mascotas del usuario:", err);
@@ -64,7 +69,7 @@ const AppointmentsPage = () => {
     }
 
     const day = String(selectedDate).padStart(2, "0");
-    const month = "09"; 
+    const month = "09";
     const year = "2025";
     const appointmentDatetime = `${year}-${month}-${day}T${selectedTime}:00`;
 
@@ -80,13 +85,17 @@ const AppointmentsPage = () => {
     console.log("Cita a enviar:", appointmentData);
 
     try {
-      const result = await appointmentsService.createAppointment(appointmentData);
-      setSuccess("¡Cita creada con éxito!");
-      console.log("Cita creada:", result);
+      await appointmentsService.createAppointment(appointmentData);
+      setIsModalOpen(true); 
     } catch (error) {
       setError("Error al crear la cita. Por favor, inténtelo de nuevo.");
       console.error("Error al crear la cita:", error);
     }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    navigate("/customer-area"); 
   };
 
   return (
@@ -104,7 +113,6 @@ const AppointmentsPage = () => {
         </div>
 
         <form className="appointments__form" onSubmit={handleSubmit}>
- 
           <div className="appointments__form-row">
             <input
               className="appointments__input"
@@ -116,7 +124,6 @@ const AppointmentsPage = () => {
             />
           </div>
 
-     
           <div className="appointments__form-row">
             <label>Selecciona tu mascota:</label>
             <select
@@ -134,7 +141,6 @@ const AppointmentsPage = () => {
             </select>
           </div>
 
-
           <div className="appointments__form-row">
             <label className="appointments__checkbox-label">
               <input
@@ -145,7 +151,6 @@ const AppointmentsPage = () => {
               ¿Es urgente?
             </label>
           </div>
-
 
           <div className="appointments__calendar">
             <h3>Septiembre 2025</h3>
@@ -165,7 +170,6 @@ const AppointmentsPage = () => {
             </div>
           </div>
 
-
           <div className="appointments__times">
             {times.map((time) => (
               <button
@@ -181,15 +185,25 @@ const AppointmentsPage = () => {
             ))}
           </div>
 
-
           <button type="submit" className="appointments__submit">
             Confirmar cita
           </button>
 
-          {success && <p className="appointments__success">{success}</p>}
           {error && <p className="appointments__error">{error}</p>}
         </form>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>✅ Cita creada con éxito</h2>
+            <p>Tu cita ha sido registrada correctamente.</p>
+            <button onClick={handleModalClose} className="modal__button">
+              Ir a mi área
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
