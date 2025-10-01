@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './CustomerArea.css';
-import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 import pacientsService from '../../services/pacients/PacientsService';
 import appointmentsService from '../../services/appointments/AppointmentsService';
 import { Link } from 'react-router';
+import Hero from '../../components/hero/Hero';
+
 
 const CustomerArea = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [pets, setPets] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
@@ -43,14 +45,10 @@ useEffect(() => {
 }, []); 
 
   return (
+    <>
+          <Hero text="Área personal" />
     <div className="customer-area">
-      <div className="welcome-section">
-        <h1>Hola, {user ? user.name : 'Cliente'}</h1>
-        <div className="user-actions">
-          <span>Tu área | Cerrar sesión</span>
-        </div>
-      </div>
-
+      
       <div className="customer-content">
         <section className="pets-section">
           <div className="section-header">
@@ -103,6 +101,7 @@ useEffect(() => {
         </section>
       </div>
     </div>
+    </>
   );
 };
 
