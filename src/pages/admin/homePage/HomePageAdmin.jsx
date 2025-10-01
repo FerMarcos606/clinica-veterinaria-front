@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Pets from "../../../assets/imgs/banner.png"; 
 import './HomePageAdmin.css'
+import PatientIcon from "../../../assets/imgs/patient.png";
+import ScheduleIcon from "../../../assets/imgs/schedule.png";
 
 export const HomePageAdmin = () => {
     
@@ -21,15 +23,15 @@ export const HomePageAdmin = () => {
         <h2>¿Qué quieres hacer?</h2>
             <div className="home-admin-options">
             <div className="home-admin-option">
-            <img src="" alt="Pacientes" className="home-admin-icon" />
-            <Link to="/patients" className="home-admin-link">
+            <img src={PatientIcon} alt="Pacientes" className="home-admin-icon" />
+            <Link to="/" className="home-admin-link">
                 Ver lista de pacientes
             </Link>
             </div>
 
             <div className="home-admin-option">
-            <img src="" alt="Agenda" className="home-admin-icon" />
-            <Link to="/agenda" className="home-admin-link">
+            <img src={ScheduleIcon} alt="Agenda" className="home-admin-icon" />
+            <Link to="/" className="home-admin-link">
                 Tu agenda
             </Link>
             </div>
