@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Hero from "../../../components/hero/Hero";
 import Button from "../../../components/button/Button";
 import Table from "../../../components/table/Table";
-import SearchBar from "../../../components/searchBar/SearchBar";
+import SearchBar from "../../../components/SearchBar/SearchBar";
 import './PatientListPage.css'
 import pacientsService from "../../../services/pacients/PacientsService";
 
