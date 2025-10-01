@@ -26,14 +26,14 @@ useState / useEffect (gestión de estado y efectos)
 CSS
 
 ## 🚀 Instalación y uso
-Requisitos previos
+Requisitos previos:
 
 Tener instalado Node.js
  (v16 o superior)
 
 npm (incluido en Node.js) o yarn
 
-Pasos para correr el proyecto localmente
+Pasos para correr el proyecto localmente:
 ### Clonar el repositorio
 git clone <url-del-repo>
 
