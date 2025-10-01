@@ -1,4 +1,46 @@
 .appointments {
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+@media (max-width: 900px) {
+    .appointments__container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .appointments__instructions {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .appointments {
+        padding: 1rem;
+    }
+    .appointments__title {
+        font-size: 18px;
+    }
+    .appointments__instructions-title {
+        font-size: 16px;
+    }
+    .appointments__calendar-days {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.3rem;
+    }
+    .appointments__form-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .appointments__times {
+        gap: 0.3rem;
+    }
+    .appointments__submit {
+        width: 100%;
+        padding: 0.7rem 0;
+    }
+}
+.appointments {
     padding: 2rem;
     font-family: "Inter", sans-serif;
     color: #1a542a;
