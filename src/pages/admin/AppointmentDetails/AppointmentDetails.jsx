@@ -103,7 +103,7 @@ export const AppointmentDetails = () => {
             <InfoCard key={treatment.id} data={treatment} fields={treatmentFields} />
           ))
         ) : (
-          <p>No hay tratamientos para este paciente.</p>
+                <p className="no-treatments">No hay tratamientos para este paciente.</p>
         )}
       </Square>
 
