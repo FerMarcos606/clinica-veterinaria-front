@@ -17,8 +17,8 @@ const CustomerArea = () => {
   const [error, setError] = useState(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); // ✅ Modal de confirmación
-  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null); // 🆔 Cita seleccionada
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); 
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
@@ -93,7 +93,6 @@ const CustomerArea = () => {
               {userDetails ? (
                 <ul className="user-details-list">
                   {[
-                    { label: "Id", key: "id_user" },
                     { label: "Email", key: "email" },
                     { label: "DNI", key: "dni" },
                     { label: "Nombre", key: "name" },
