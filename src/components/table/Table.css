@@ -6,8 +6,8 @@
 }
 
 .custom-table {
-  width: max-content; /* ✅ la tabla solo ocupa el espacio necesario */
-  min-width: 100%;   /* pero no menos del contenedor */
+  width: max-content; 
+  min-width: 100%;   
   border-collapse: collapse;
   font-size: 0.95rem;
 }
@@ -17,7 +17,7 @@
   border: 2px solid var(--color-primary);
   padding: 10px 14px;
   text-align: left;
-  white-space: nowrap; /* ✅ evita saltos de línea */
+  white-space: nowrap; 
 }
 .custom-table thead {
   background-color: #f4f4f4;
@@ -31,7 +31,6 @@
   background-color: #f1f7ff;
 }
 
-/* ✅ Ajuste adicional para pantallas pequeñas */
 @media (max-width: 768px) {
   .custom-table {
     font-size: 0.85rem;
