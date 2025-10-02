@@ -34,7 +34,6 @@ class AuthService {
     }
   }
 
-  // 🔹 Cerrar sesión
   async logoutUser() {
     try {
       const result = await this.authRepository.logout();

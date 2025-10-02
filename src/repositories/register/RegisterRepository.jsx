@@ -13,7 +13,7 @@ class RegisterRepository {
         body: JSON.stringify(userData),
       });
 
-      // Si no es exitoso, lanza un error con el status
+  
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         throw new Error(
@@ -22,7 +22,7 @@ class RegisterRepository {
         );
       }
 
-      // Para el 201, devuelve la respuesta completa
+
       const data = await response.json();
       return {
         success: true,
@@ -30,7 +30,7 @@ class RegisterRepository {
         data: data,
       };
     } catch (error) {
-      // Maneja errores de red y otros errores
+
       throw new Error(
         error.message || 'Error de conexión con el servidor'
       );

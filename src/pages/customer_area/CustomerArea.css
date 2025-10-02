@@ -1,4 +1,4 @@
-/* Estilos para la sección de detalles del usuario */
+
 .user-details-section {
   background: var(--color-white);
   padding: 2rem;
@@ -82,7 +82,6 @@
   align-items: start;
 }
 
-/* Sección de mascotas (izquierda) */
 .pets-section {
   background: var(--color-white);
   padding: 1.5rem;
@@ -90,7 +89,6 @@
   box-shadow: 0 2px 4px var(--color-shadow);
 }
 
-/* Sección de citas (derecha) */
 .appointments-section {
   background: var(--color-card-gray);
   padding: 1.5rem;

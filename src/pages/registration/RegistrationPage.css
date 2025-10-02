@@ -1,13 +1,13 @@
-/* Google Fonts Import */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* ===== REGISTRATION PAGE ===== */
+
 .registration-page {
   min-height: 100vh;
   background-color: var(--color-background-light);
 }
 
-/* Container */
+
 .registration-page__container {
   max-width: 64rem;
   margin: 0 auto;
@@ -34,7 +34,7 @@
   padding: 2rem;
 }
 
-/* Section */
+
 .registration-form__section {
   margin-bottom: 2rem;
   padding-left: 1rem;
@@ -45,7 +45,7 @@
   margin-bottom: 2rem;
 }
 
-/* Section Title */
+
 .registration-form__section-title {
   font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
@@ -54,7 +54,7 @@
   margin: 0 0 1.5rem 0;
 }
 
-/* Rows and Fields */
+
 .registration-form__row {
   display: grid;
   grid-template-columns: 1fr;
@@ -78,10 +78,10 @@
 .registration-form__field {
   display: flex;
   flex-direction: column;
-  min-height: 100px; /* Espacio para label + input + error */
+  min-height: 100px;
 }
 
-/* Labels */
+
 .registration-form__label {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
@@ -89,7 +89,7 @@
   margin-bottom: 0.5rem;
   display: block;
   font-size: 1.125rem;
-  flex-shrink: 0; /* No se encoge */
+  flex-shrink: 0; 
 }
 
 .registration-form__required {
@@ -108,8 +108,8 @@
   transition: all 0.3s ease;
   outline: none;
   box-sizing: border-box;
-  flex-shrink: 0; /* No se encoge */
-  height: 48px; /* Altura fija para consistencia */
+  flex-shrink: 0; 
+  height: 48px; 
 }
 
 .registration-form__input:focus {
@@ -125,7 +125,7 @@
   box-shadow: 0 0 0 2px var(--color-error);
 }
 
-/* Error Messages */
+
 .registration-form__error {
   font-family: 'Inter', sans-serif;
   color: var(--color-error);
@@ -133,20 +133,20 @@
   margin-top: 0.25rem;
   margin-bottom: 0;
   line-height: 1.2;
-  height: 16px; /* Altura más pequeña y fija */
-  overflow: hidden; /* Oculta el overflow para evitar expansión */
-  text-overflow: ellipsis; /* Puntos suspensivos si es muy largo */
-  white-space: nowrap; /* Una sola línea */
+  height: 16px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
 }
 
-/* Submit Section */
+
 .registration-form__submit {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
 }
 
-/* Button */
+
 .registration-form__button {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -173,9 +173,7 @@
   background-color: var(--color-secondary-active);
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 
-/* Tablet */
 @media (min-width: 768px) {
   .registration-form {
     padding: 2.5rem;
@@ -186,7 +184,7 @@
   }
 }
 
-/* Desktop */
+
 @media (min-width: 1024px) {
   .registration-form {
     padding: 3rem;
@@ -202,9 +200,6 @@
   }
 }
 
-/* ===== ACCESSIBILITY ===== */
-
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .registration-form__input {
     border: 1px solid var(--color-text-medium);
@@ -216,7 +211,7 @@
   }
 }
 
-/* Reduced motion support */
+
 @media (prefers-reduced-motion: reduce) {
   .registration-form__input,
   .registration-form__button {

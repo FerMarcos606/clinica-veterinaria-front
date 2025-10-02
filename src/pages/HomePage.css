@@ -1,14 +1,14 @@
-/* Estilos para el componente Main */
+
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Opcional */
+  box-sizing: border-box; 
 }
 .main {
 
 }
 
-/* --- SECCIÓN HERO --- */
+
 .main__hero {
   display: flex;
   justify-content: space-between;
@@ -39,7 +39,7 @@ body {
   border-radius: 8px;
 }
 
-/* --- SECCIÓN ¿POR QUÉ ELEGIRNOS? --- */
+
 .main__why {
   padding: 60px 20px;
   text-align: center;
@@ -104,10 +104,9 @@ body {
   line-height: 1.4;
 }
 
-/* --- MEDIA QUERIES --- */
-/* Para pantallas de 768px o menos (tabletas y móviles) */
+
 @media (max-width: 768px) {
-  /* Hero */
+  
   .main__hero {
     flex-direction: column;
     text-align: center;
@@ -127,9 +126,9 @@ body {
     margin-top: 20px;
   }
 
-  /* Why */
+
   .main__why-columns {
-    flex-direction: column; /* Apila las columnas */
+    flex-direction: column; 
   }
 
   .main__why {
@@ -141,9 +140,9 @@ body {
     margin-bottom: 30px;
   }
 
-  /* Why Cards */
+
   .main__why-card {
-    flex-direction: column; /* Apila el icono y el texto en las tarjetas */
+    flex-direction: column; 
     text-align: center;
   }
   

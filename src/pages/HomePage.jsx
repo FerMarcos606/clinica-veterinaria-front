@@ -26,8 +26,8 @@ const Main = () => {
 
      <section className="main__why">
   <h2 className="main__why-title">¿Por qué elegirnos?</h2>
-  <div className="main__why-columns"> {/* Contenedor de las dos columnas */}
-    <div className="main__why-column"> {/* Primera columna */}
+  <div className="main__why-columns"> 
+    <div className="main__why-column"> 
       <div className="main__why-card">
         <img src={AtencionPersonalizada} alt="icono perro con lámpara protectora en el cuello" />
         <div className="main__why-card-content">
@@ -50,7 +50,7 @@ const Main = () => {
         </div>
       </div>
     </div>
-    <div className="main__why-column"> {/* Segunda columna */}
+    <div className="main__why-column"> 
       <div className="main__why-card">
         <img src={AmbienteIcon} alt="icono corazón" />
         <div className="main__why-card-content">

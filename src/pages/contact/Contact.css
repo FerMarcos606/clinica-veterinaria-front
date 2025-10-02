@@ -6,14 +6,13 @@ h2{
 
 .contact-main {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr; /* Formulario más ancho, info más estrecha, mapa ancho */
+    grid-template-columns: 2fr 1fr 2fr; 
     gap: 20px;
     padding: 40px;
     background: #fff;
   }
   
-  
-  /* Columna 1: formulario */
+
   .form {
     background: #fff;
     padding: 35px;
@@ -23,7 +22,7 @@ h2{
     gap: 15px;
   }
   
-  /* Inputs */
+
   .form input,
   .form textarea {
     width: 100%;
@@ -34,11 +33,11 @@ h2{
   }
   
   .form-btn {
-    width: 100%;         /* ocupa lo mismo que los inputs */
+    width: 100%;        
     margin-top: 10px;
   } */
   
-  /* Columna 2: info + horario */
+
   .col-info {
     display: flex;
     flex-direction: column;
@@ -59,7 +58,7 @@ h2{
     text-align: center;
   }
   
-  /* Columna 3: mapa */
+
   .col-mapa iframe {
     width: 100%;
     height: 100%;
@@ -68,7 +67,7 @@ h2{
     border-radius: 10px;
   }
   
-  /* Responsive */
+
   @media (max-width: 900px) {
     .main {
       grid-template-columns: 1fr;

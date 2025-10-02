@@ -1,4 +1,4 @@
-/* === Overlay === */
+
 .login-modal__overlay {
   position: fixed;
   inset: 0;
@@ -9,7 +9,7 @@
   z-index: 50;
 }
 
-/* === Modal === */
+
 .login-modal {
   position: relative;
   background: var(--color-white);
@@ -24,7 +24,7 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-/* === Close button === */
+
 .login-modal__close {
   position: absolute;
   top: 1rem;
@@ -42,7 +42,7 @@
   transform: scale(1.1);
 }
 
-/* === Logo === */
+
 .login-modal__header {
   text-align: center;
 }
@@ -68,7 +68,7 @@
   display: block;
 }
 
-/* === Title === */
+
 .login-modal__title {
   text-align: center;
   font-size: 1.25rem;
@@ -77,7 +77,6 @@
   margin: 0;
 }
 
-/* === Form fields === */
 .login-modal__form {
   display: flex;
   flex-direction: column;
@@ -114,7 +113,7 @@
   border: 1px solid var(--color-error);
 }
 
-/* === Error text === */
+
 .login-modal__error {
   font-size: 0.8rem;
   color: var(--color-error);
@@ -125,7 +124,7 @@
   margin-bottom: 0.5rem;
 }
 
-/* === Button === */
+
 .login-modal__button {
   margin-top: 0.5rem;
   padding: 0.9rem;
@@ -156,7 +155,7 @@
   background: var(--color-primary-light);
 }
 
-/* === Footer === */
+
 .login-modal__footer {
   text-align: center;
   font-size: 0.85rem;
@@ -182,7 +181,7 @@
   color: var(--color-primary);
 }
 
-/* === Animación === */
+
 @keyframes fadeIn {
   from {
     opacity: 0;

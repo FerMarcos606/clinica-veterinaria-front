@@ -1,8 +1,8 @@
-// src/components/Footer/Footer.jsx
+
 import React from "react";
 import "./Footer.css";
 
-// Importar los iconos/imagenes
+
 import IconTelephone from "../../assets/imgs/telephone.png";
 import IconPin from "../../assets/imgs/pin.png";
 import IconLogo from "../../assets/imgs/logo.png";
