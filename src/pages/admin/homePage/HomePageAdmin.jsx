@@ -4,6 +4,8 @@ import Pets from "../../../assets/imgs/banner.png";
 import './HomePageAdmin.css'
 import PatientIcon from "../../../assets/imgs/atencionFix.png";
 import ScheduleIcon from "../../../assets/imgs/scheduleFix.png";
+import IconinicioSesion from "../../../assets/icons/iconinicioSesion.png";
+
 
 export const HomePageAdmin = () => {
     
@@ -24,14 +26,19 @@ export const HomePageAdmin = () => {
             <div className="home-admin-options">
             <div className="home-admin-option">
             <img src={PatientIcon} alt="Pacientes" className="home-admin-icon" />
-            <Link to="/" className="home-admin-link">
-                Ver lista de pacientes
+            <Link to="/listaPacientes" className="home-admin-link">
+                Ver lista de Pacientes
             </Link>
             </div>
-
+            <div className="home-admin-option">
+                    <img src={IconinicioSesion} alt="Pacientes" className="home-admin-icon" /> 
+                    <Link to="/admin/user-list" className="home-admin-link">
+                        Ver lista de Usuarios
+                    </Link>
+            </div>
             <div className="home-admin-option">
             <img src={ScheduleIcon} alt="Agenda" className="home-admin-icon" />
-            <Link to="/" className="home-admin-link">
+            <Link to="/listaCitas" className="home-admin-link">
                 Tu agenda
             </Link>
             </div>
