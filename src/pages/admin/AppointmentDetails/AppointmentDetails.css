@@ -1,0 +1,13 @@
+.button-container{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.button-container Button {
+    margin: 15px;
+
+}
+
+.no-treatments {
+    text-align: center;
+}

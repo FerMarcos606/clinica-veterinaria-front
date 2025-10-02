@@ -1,0 +1,152 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+.main {
+
+}
+
+
+.main__hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--color-primary-light);
+  min-height: 200px;
+}
+
+.main__hero-text {
+  flex: 1;
+}
+
+.main__hero-text h1 {
+  font-size: 2.5rem;
+  color: var(--color-text-dark);
+  font-weight: bold;
+}
+
+.main__hero-image {
+  flex: 1;
+  text-align: right;
+}
+
+.main__hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+.main__why {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.main__why-title {
+  font-size: 2rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 40px;
+}
+
+.main__why-columns {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main__why-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.main__why-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: var(--color-white);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px var(--color-shadow);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.main__why-card:hover {
+  transform: translateY(-5px);
+}
+
+.main__why-card img {
+  width: 60px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.main__why-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.main__why-heading {
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 5px;
+}
+
+.main__why-text {
+  font-size: 0.9rem;
+  color: var(--color-text-medium);
+  line-height: 1.4;
+}
+
+
+@media (max-width: 768px) {
+  
+  .main__hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .main__hero-text {
+    margin-bottom: 20px;
+  }
+
+  .main__hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .main__hero-image {
+    width: 80%;
+    margin-top: 20px;
+  }
+
+
+  .main__why-columns {
+    flex-direction: column; 
+  }
+
+  .main__why {
+    padding: 40px 10px;
+  }
+
+  .main__why-title {
+    font-size: 1.75rem;
+    margin-bottom: 30px;
+  }
+
+
+  .main__why-card {
+    flex-direction: column; 
+    text-align: center;
+  }
+  
+  .main__why-card img {
+      margin-bottom: 10px;
+  }
+}

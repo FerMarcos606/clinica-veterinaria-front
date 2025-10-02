@@ -1,0 +1,18 @@
+.functional-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 8px; 
+}
+
+.divider-div {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 6px 0;
+}
+
+.divider {
+    border: none;
+    border-top: 2px solid var(--color-primary); 
+    width: 85%;
+  }
